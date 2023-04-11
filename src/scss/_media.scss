@@ -1,0 +1,73 @@
+
+@media (max-width:900px) {
+    .wrapper{
+        max-width: rem(900);
+        min-width:rem(701);
+    }
+    .navbar__main-logo{
+        width: rem(70);
+        height:rem(70);
+    }
+    .companu__title{
+        font-size: rem(25);
+    }
+    .company__slogan{
+        font-size: rem(15);
+    }
+    .filters__style{
+        max-width: rem(100);
+        width: 100%;
+    }
+   
+}
+@media (max-width:700px){
+    .wrapper{
+        max-width: rem(700);
+        min-width: rem(501);
+    }
+    .navbar__main-logo{
+        margin-right: rem(15);
+    }
+    .navbar__menu{
+        flex-direction:column ;
+    }
+    .menu__information{
+        padding-bottom: rem(25);
+    }
+    .navbar__btn{
+        padding-bottom: rem(20);
+    }
+    .cards__filters{
+        flex-direction: column;
+    }
+    .filters__style{
+       max-width: rem(500);
+       width: 100%;
+    }
+    .btn__search{
+        margin-top: rem(15);
+    }
+}
+@media (max-width:500px){
+    .wrapper{
+        margin: rem(20) rem(40);
+    }
+    .companu__title{
+        font-size: rem(25);
+    }
+    .company__slogan{
+        font-size: rem(20);
+
+    }
+    .cards__filters{
+        flex-direction: column;
+    }
+    .visiter{
+        flex-direction: column;
+        align-items: center;
+    }
+    .visiter__card{
+        max-width: rem(300);
+        width: 100%;
+    }
+}

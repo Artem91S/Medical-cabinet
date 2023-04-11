@@ -1,0 +1,41 @@
+.header {
+  background: $clr-base-ddk;
+
+  &__body {
+    padding: rem(10);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__logo {
+    width: rem(100);
+    height: rem(100);
+    margin-right: rem(30);
+  }
+
+  &__brand {
+    display: flex;
+    flex-direction: column;
+    color: $clr-base-lt;
+  }
+
+  &__title {
+    font-size: rem(30);
+    line-height: rem(35);
+  }
+
+  &__btn {
+    padding: rem(15) rem(50);
+
+    &--hidden {
+      display: none;
+    }
+  }
+}

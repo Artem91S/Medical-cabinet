@@ -1,0 +1,68 @@
+@import "fonts";
+@import "_reset";
+@import "_variables";
+@import "_header";
+@import "_modal";
+@import "_cards__filters";
+@import "_creating__visiter";
+@import "_creatCards";
+//@import "_visiter__card";
+
+body {
+  font-family: $ff-base;
+  font-size: $fs-base;
+}
+.hidden{
+  display: none;
+}
+.wrapper {
+  //margin: 30px 50px;
+  //min-width: 901px;
+}
+
+.btn {
+  border-radius: rem(20);
+  transition: color .3s ease;
+  cursor: pointer;
+
+  &--red {
+    color: $clr-ntrl-min;
+    background: $clr-primary-btn;
+
+    &:hover {
+      background: $clr-ntrl-min;
+      color: $clr-primary-btn;
+    }
+  }
+
+  &--grey {
+    color: $clr-ntrl-min;
+    background: $clr-base-ddk;
+
+    &:hover {
+      background: $clr-primary-btn;
+      color: $clr-ntrl-min;
+    }
+  }
+
+  &--hidden {
+    display: none;
+  }
+}
+
+.container {
+  max-width: rem(1200);
+  margin: 0 auto;
+}
+
+
+.missing-info {
+  color: red;
+}
+
+.board-of-cards__text{
+  &--hidden{
+    display: none;
+  }
+}
+

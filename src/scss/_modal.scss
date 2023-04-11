@@ -1,0 +1,64 @@
+.modal {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+
+  &--open {
+    display: block;
+  }
+
+  &__content {
+    background: $clr-ntrl-min;
+    border-radius: rem(12);
+    padding: rem(20);
+    margin: 20% auto;
+    border: 1px solid #888;
+    width: 40%;
+  }
+
+  &__close-btn {
+    left: 94%;
+  }
+
+  &__title {
+    text-align: center;
+    margin: 0 0 rem(20) 0;
+  }
+
+  &__form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: rem(10);
+
+    & > input {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+    }
+
+    & > select {
+      margin: rem(8) 0;
+    }
+  }
+
+  &__btn {
+    padding: rem(15) 0;
+    margin-top: rem(20);
+  }
+
+}
+
+.close-btn {
+  position: relative;
+  font-size: 2.2rem;
+  cursor: pointer;
+  width: rem(20);
+}
