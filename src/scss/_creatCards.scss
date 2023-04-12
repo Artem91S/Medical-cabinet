@@ -1,56 +1,57 @@
 .board-of-cards{
-    padding: rem(20);
+    padding: 20px;
     display: flex;
     justify-content: center;
-    align-items: center;
-    gap:rem(10);
-    flex-wrap: wrap;
+    gap:10px;
+    height: 75vh;
 &__patient-card{
-    padding: rem(5);
+   
+    padding:5px;
     background:$clr-base-lt;
     position: relative;
     display: flex;
-    font-size: rem(16);
+    font-size:16px;
     flex-direction: column;
-    width:rem(250);
-    height: rem(250);
+    width:250px;
+    height:250px;
 &__title{
-    padding-bottom: rem(15);
+    padding-bottom:15px;
 }
 &__options{
     position:absolute;
-    right: rem(10);
+    right: 10px;
 }
 &__content{
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap:rem(5);
+    gap:5px;
 }
 &__close-btn{
     cursor: pointer;
-    font-size: rem(30);
+    font-size:30px;
 }
 &__edit-btn{
-    font-size: rem(20);
+    font-size:20px;
     cursor: pointer;
 }
 &__more-details{
     display: none;
     background:$clr-base-lt;
+ 
 }
 &__btn-details{
-    margin-top: rem(5);
+    margin-top:5px;
     color:$clr-ntrl-min;
     cursor: pointer;
-    padding: rem(15);
-    border-radius: rem(15);
+    padding: 15px;
+    border-radius:15px;
     background: $clr-primary-btn;
 }
-
 &__hidden-filter-card{
     display: none;
 }
+
 }
 }
 .click-on-details{
@@ -58,10 +59,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap:rem(5);
+    gap:5px;
     position: absolute;
-    padding:rem(5);
-    top:rem(250);
+    padding:5px;
+    top:250px;
     left:0;
     width:100%;
 }

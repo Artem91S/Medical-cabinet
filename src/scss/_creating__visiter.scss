@@ -1,41 +1,58 @@
-.creating__visit{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background:$clr-ntrl-min;
-    width: rem(250);
-    padding: rem(25);
-    border: 1px solid #000; 
-}
-.create-modal{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top:0;
+.modal__content__choose__doctor{
+    padding: 10px 50px;
+    border: 1px solid #000;
     width: 100%;
-    height: 100vh;
-    background: rgba(0,0,0,0.5);
 }
+
+// .creating__visit{
+//     display: flex;
+//     position: relative;
+//     flex-direction: column;
+//     justify-content: center;
+//     background:$clr-ntrl-min;
+//     width: 250px;
+//     padding: 25px;
+//     border: 1px solid #000; 
+// }
+// .create-modal{
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     position: absolute;
+//     top:0;
+//     width: 100%;
+//     height: 100vh;
+//     background: rgba(0,0,0,0.5);
+// }
 
 .flex__forma{
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
+
 .border{
     border: 1px solid #000;
 }
-.choose__doctor{
-padding: 10px;
+.input--size{
+    padding: 10px 20px;
 }
 .visit__labels{
-    padding: rem(10) 0 ;
+    padding: 10px 0 ;
 }
 .btn__send__visit{
-    margin-top: rem(30);
+    cursor: pointer;
+    margin-top: 20px;
+    padding: 20px 40px;
+    font-size: 18px;
+    background:$clr-primary-btn;
+    color:$clr-ntrl-min;
+}
+.btn__send__visit:hover{
+    background:$clr-ntrl-min;
+    color:$clr-primary-btn;
 }
 .add__inputs{
     display: flex;
     flex-direction: column;
-
 }
