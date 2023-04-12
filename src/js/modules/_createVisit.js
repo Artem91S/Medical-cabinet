@@ -11,12 +11,12 @@ createVisitButton.addEventListener("click",(e)=>{
     e.preventDefault();
     modal.createModal()
     const sendUser = document.querySelector('.btn__send__visit');
-    const closeButton =document.querySelector('.modal-login__close-btn');
+    const closeButton =document.querySelector('.modal__content__close-btn');
     const modalSection =document.querySelector('.modal');
     modal.clickCloseModal(modalSection,closeButton)
    
     const form =document.querySelector(".modal-creating__form");
-    const chooseDoctor = document.querySelector(".choose__doctor");
+    const chooseDoctor = document.querySelector(".modal__content__choose__doctor");
     const doctors = {};
     function makeDoctorsObject(key,value,modal){
         return doctors[key]= value.bind(modal)

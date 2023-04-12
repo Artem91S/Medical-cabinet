@@ -7,8 +7,11 @@ let enterModal = new Modal();
 enterBtn.onclick = enterPage;
 let tokenUser= '';
  function enterPage (){
-      enterModal.createModalEnter()
-      const btnSubmit =document.querySelector('.send-data');
+      enterModal.createModalEnter("Прошу введіть дані:")
+      const modalScreen = document.querySelector('.modal');
+      const closeButton = document.querySelector('.modal__content__close-btn');
+      enterModal.clickCloseModal(modalScreen,closeButton)
+      const btnSubmit =document.querySelector('.modal__content__registration-btn');
       btnSubmit.addEventListener('click' ,()=>{
         let emailValue = document.querySelector('.modal__email').value;
         let passwordValue = document.querySelector('.modal__password').value;
@@ -20,7 +23,6 @@ tokenUser= JSON.parse(localStorage.getItem("token"))?.token//////'getting token
 window.onload =()=>{
     reloadPage(tokenUser)
   } 
-
  async function getToken(emailValue,passwordValue){
    let getInfoFromServer= await fetch("https://ajax.test-danit.com/api/v2/cards/login", {
         method: 'POST',
@@ -44,6 +46,7 @@ function reloadPage(localObj){
   if(localObj){
     toggleClass('header__btn')
     toggleClass('board-of-cards__text')
+    toggleClass('cards-filters')
     renderingLoginCards(localObj)
   }
 
