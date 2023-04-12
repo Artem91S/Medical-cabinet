@@ -6,6 +6,7 @@
 @import "_cards__filters";
 @import "_creating__visiter";
 @import "_creatCards";
+@import "_media";
 //@import "_visiter__card";
 
 body {
@@ -15,16 +16,10 @@ body {
 .hidden{
   display: none;
 }
-.wrapper {
-  //margin: 30px 50px;
-  //min-width: 901px;
-}
-
 .btn {
-  border-radius: rem(20);
+  border-radius:20px;
   transition: color .3s ease;
   cursor: pointer;
-
   &--red {
     color: $clr-ntrl-min;
     background: $clr-primary-btn;
@@ -45,22 +40,14 @@ body {
     }
   }
 
-  &--hidden {
-    display: none;
-  }
 }
-
-.container {
-  max-width: rem(1200);
-  margin: 0 auto;
-}
-
 
 .missing-info {
   color: red;
 }
 
 .board-of-cards__text{
+  
   &--hidden{
     display: none;
   }
