@@ -1,4 +1,9 @@
+//+
+
 .modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: fixed;
   width: 100%;
   height: 100%;
@@ -6,36 +11,30 @@
   left: 0;
   z-index: 1;
   overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4);
-
-  &--open {
-    display: block;
-  }
+  background-color: rgba(0, 0, 0, 0.9);
 
   &__content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background: $clr-ntrl-min;
-    border-radius: rem(12);
-    padding: rem(20);
+    border-radius: 12px;
+    padding:40px;
     margin: 20% auto;
     border: 1px solid #888;
     width: 40%;
-  }
-
-  &__close-btn {
-    left: 94%;
-  }
-
-  &__title {
-    text-align: center;
-    margin: 0 0 rem(20) 0;
-  }
-
-  &__form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: rem(10);
-
+    &__close-btn{
+      cursor: pointer;
+      position: absolute;
+      top:10px;
+      font-size: 30px;
+      left: 90%;
+    }
+    &__title {
+      text-align: center;
+      margin: 0 0 20px 0;
+    }
     & > input {
       width: 100%;
       padding: 12px 20px;
@@ -43,22 +42,31 @@
       display: inline-block;
       border: 1px solid #ccc;
     }
-
-    & > select {
-      margin: rem(8) 0;
+    &__registration-btn{
+      padding: 20px;
+      
     }
   }
 
-  &__btn {
-    padding: rem(15) 0;
-    margin-top: rem(20);
+
+  &__form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    & > select {
+      margin:8px 0;
+    }
   }
-
+  &__btn {
+    padding: 15px;
+    margin-top: 20px;
+  }
 }
-
 .close-btn {
   position: relative;
-  font-size: 2.2rem;
+  font-size: 14px;
   cursor: pointer;
-  width: rem(20);
+  width: 20px;
 }
