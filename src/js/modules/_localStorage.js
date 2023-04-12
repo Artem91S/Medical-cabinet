@@ -18,19 +18,6 @@ validation.validationFilters(selectVisitsTerm,"visitUrgency");
 validation.clickOnButtonSearch();
 let cards =new Card();
 cards.deleteCard(boardOfCards)
-// boardOfCards.addEventListener('click', (e)=>{
-//   let parentElementOfClickId = e.target.closest("div").parentElement.dataset.id;
-//   if(e.target.className === 'board-of-cards__patient-card__edit-btn' && e.target.closest("div").parentElement.dataset.id === parentElementOfClickId){
-//     createModalForChanges(tokenUser,parentElementOfClickId)
-//   }
-// })
-
-// fetch(`https://ajax.test-danit.com/api/v2/cards/161521`, {
-//   method: 'DELETE',
-//   headers: {
-//       'Authorization': `Bearer ${tokenUser}`
-//   },
-// })
 json.forEach(card=>{
 
   const cardsValues = Object.values(card);
@@ -62,8 +49,6 @@ document.querySelector('.board-of-cards').addEventListener('click', (e)=>{
     createModalForChanges(tokenUser,parentElementOfClickId)
   }
 })
-
-  
  
 async function createModalForChanges(tokenUser,parentElementOfClickId){
   
@@ -79,28 +64,35 @@ async function createModalForChanges(tokenUser,parentElementOfClickId){
           console.log(changingCard)
           let changeModal =new Modal("Кардіолог","Стоматолог","Терапевт");
           
+          boardOfCards.innerHTML ="";
+
           changeModal.createModal();
 
           let sectionModal = document.querySelector('.modal');
-          let closeButton = document.querySelector('.modal-login__close-btn');
+          let closeButton = document.querySelector('.modal__content__close-btn')
           let form = document.querySelector('.modal-creating__form');
           let btnSubmitData =document.querySelector('.btn__send__visit')
-          let optionDoctorSelected = document.querySelector('.choose__doctor').querySelectorAll('option');
-
-      
-          doctor === "Сardiologist"?optionDoctorSelected[0].selected= 'selected':""
+          btnSubmitData.classList.add("position")
+          let optionDoctorSelected = document.querySelector('.modal__content__choose__doctor').querySelectorAll('option');
+                  
+          sectionModal.addEventListener("click",(e)=>{
+            if(e.target === closeButton || e.target === sectionModal )
+              changeModal.closeModal();
+              renderingLoginCards(tokenUser)
+                })
+          doctor === "Сardiologist"?(
+            optionDoctorSelected[0].selected= 'selected',
+            VisitСardiologist.changeForm(form,changingCard)
+            ):""
          
           doctor === "Dentist"?(
             optionDoctorSelected[1].selected ='selected',
             visitDentist.changeForm(form,changingCard),
-            changeModal.putDataFromForma(btnSubmitData,sectionModal,tokenUser,parentElementOfClickId),            
-            changeModal.clickCloseModal(sectionModal,closeButton)
-            ):""
+            changeModal.putDataFromForma(btnSubmitData,sectionModal,tokenUser,parentElementOfClickId)
+                        ):""
           doctor === "Therapeutic"? optionDoctorSelected[2].selected= 'selected':""
           
-          boardOfCards.innerHTML ="";
            
-          
           btnSubmitData.addEventListener('click', ()=>{
             changeModal.closeModal();
             renderingLoginCards(tokenUser)
