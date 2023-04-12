@@ -1,6 +1,7 @@
 import {Modal} from './_creatModal.js'
 // TestSytnikov.a@ukr.net pass =1234 token 211ef4b7-06d9-430f-afaa-e3364727538b
 import { toggleClass } from '../app.js';
+import {renderingLoginCards} from './_localStorage.js'
 const enterBtn = document.querySelector('.header__btn-login');
 let enterModal = new Modal();
 enterBtn.onclick = enterPage;
@@ -15,9 +16,11 @@ let tokenUser= '';
         enterModal.closeModal()
       })
  }
+tokenUser= JSON.parse(localStorage.getItem("token"))?.token//////'getting token
 window.onload =()=>{
-    reloadPage(localStorage.getItem("token"))
+    reloadPage(tokenUser)
   } 
+
  async function getToken(emailValue,passwordValue){
    let getInfoFromServer= await fetch("https://ajax.test-danit.com/api/v2/cards/login", {
         method: 'POST',
@@ -28,6 +31,7 @@ window.onload =()=>{
       })
     tokenUser = await getInfoFromServer.text()
     sendData(tokenUser)
+    reloadPage(JSON.parse(localStorage.getItem("token"))?.token)
 }
 function sendData(tokenUser){
   const user ={
@@ -35,14 +39,14 @@ function sendData(tokenUser){
   }
   localStorage.setItem("token",JSON.stringify(user))
 }
-tokenUser= JSON.parse(localStorage.getItem("token")).token//////getting token
 
 function reloadPage(localObj){
   if(localObj){
     toggleClass('header__btn')
     toggleClass('board-of-cards__text')
-////render
+    renderingLoginCards(localObj)
   }
+
 }
 
 export {tokenUser}
