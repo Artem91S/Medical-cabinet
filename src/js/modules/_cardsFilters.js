@@ -15,7 +15,8 @@ const btnSearch = document.querySelector('.cards-filters__btn-search');
             this.array = this.arrayCards.filter(userCard =>{
                 if(select.value === "Усі"){
                     let allCards =document.querySelectorAll('.board-of-cards__patient-card');
-                    allCards.forEach(card=>card.classList.remove("board-of-cards__patient-card__hidden-filter-card"))
+                    allCards.forEach(card=>{
+                        card.classList.remove("board-of-cards__patient-card__hidden-filter-card")})
                     return this.array
                 }
                 let changeClass = userCard[key]!== select.value ?"add":"remove"
@@ -38,4 +39,3 @@ const btnSearch = document.querySelector('.cards-filters__btn-search');
 
 export {selectCondition ,selectVisitsTerm,inputSearch,btnSearch,arrayOfCards}
 
- /////good
