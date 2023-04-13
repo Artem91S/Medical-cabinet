@@ -1,11 +1,11 @@
 .board-of-cards{
     padding: 20px;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     gap:10px;
     height: 75vh;
 &__patient-card{
-   
     padding:5px;
     background:$clr-base-lt;
     position: relative;
