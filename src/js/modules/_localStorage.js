@@ -2,8 +2,8 @@
 import { tokenUser} from "./_login.js"
 import {selectCondition ,selectVisitsTerm,inputSearch,btnSearch,arrayOfCards,Validation} from './_cardsFilters.js'
 import {Card,CardiologistCard,DentistCard,TherapistCard,boardOfCards} from './_creatCard.js'
-import {Modal,Visit,VisitСardiologist,VisitDentist,VisitTherapeutic}from './_creatModal.js'
-import {visitDentist} from './_createVisit.js'
+import {Modal}from './_creatModal.js'
+import {visitDentist,visitСardiologist,visitTherapeutic} from './_createVisit.js'
 async function renderingLoginCards(tokenUser){
   let response = await fetch("https://ajax.test-danit.com/api/v2/cards", {
     method: 'GET',
@@ -12,14 +12,28 @@ async function renderingLoginCards(tokenUser){
     'Authorization': `Bearer ${tokenUser}`
   }})
 let json = await response.json();
+
+
 let validation = new Validation(inputSearch,json,btnSearch,arrayOfCards);
-validation.validationFilters(selectCondition,"gggg");
-validation.validationFilters(selectVisitsTerm,"visitUrgency");
+ document.querySelector('.cards-filters').addEventListener('change',()=>{
+  selectCondition.value === "Усі"?validation.validationFilters(selectVisitsTerm,"visitUrgency"):
+  selectVisitsTerm.value === "Усі"?validation.validationFilters(selectCondition,"visitStatus"):(
+    validation.validationFilters(selectCondition,"visitStatus"),
+    validation.validationFilters(selectVisitsTerm,"visitUrgency")
+  )
+})
+
 validation.clickOnButtonSearch();
 let cards =new Card();
 cards.deleteCard(boardOfCards)
 json.forEach(card=>{
-
+// console.log(card);
+// fetch('https://ajax.test-danit.com/api/v2/cards/161931', {
+//   method: 'DELETE',
+//   headers: {
+//       'Authorization': `Bearer ${tokenUser}`
+//   },
+// })
   const cardsValues = Object.values(card);
   const [doctor,...rest]= cardsValues;
   let objDoctor;
@@ -61,10 +75,10 @@ async function createModalForChanges(tokenUser,parentElementOfClickId){
           if(response.ok){
           let changingCard = await response.json()
           const {doctor}=changingCard 
-          console.log(changingCard)
+          // console.log(changingCard)
           let changeModal =new Modal("Кардіолог","Стоматолог","Терапевт");
           
-          boardOfCards.innerHTML ="";
+        
 
           changeModal.createModal();
 
@@ -82,17 +96,22 @@ async function createModalForChanges(tokenUser,parentElementOfClickId){
                 })
           doctor === "Сardiologist"?(
             optionDoctorSelected[0].selected= 'selected',
-            VisitСardiologist.changeForm(form,changingCard)
-            ):""
+            visitСardiologist.changeForm(form,changingCard),
+            changeModal.putDataFromForma(btnSubmitData,sectionModal,tokenUser,parentElementOfClickId)
+            ):"";
          
           doctor === "Dentist"?(
             optionDoctorSelected[1].selected ='selected',
             visitDentist.changeForm(form,changingCard),
             changeModal.putDataFromForma(btnSubmitData,sectionModal,tokenUser,parentElementOfClickId)
-                        ):""
-          doctor === "Therapeutic"? optionDoctorSelected[2].selected= 'selected':""
+                        ):"";
+          doctor === "Therapeutic"?(
+            optionDoctorSelected[2].selected= 'selected',
+            visitTherapeutic.changeForm(form,changingCard),
+            changeModal.putDataFromForma(btnSubmitData,sectionModal,tokenUser,parentElementOfClickId)
+            ):""
           
-           
+          boardOfCards.innerHTML ="";
           btnSubmitData.addEventListener('click', ()=>{
             changeModal.closeModal();
             renderingLoginCards(tokenUser)
@@ -101,5 +120,5 @@ async function createModalForChanges(tokenUser,parentElementOfClickId){
         }     
       }
 
-export{renderingLoginCards,createModalForChanges}
+export{renderingLoginCards}
 // export {renderingLoginCards,setDataInLocalStorage,validateEnter,reloadPage}
