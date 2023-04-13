@@ -1,4 +1,4 @@
-
+// import { renderingLoginCards } from "./_localStorage.js";
 class Modal {
     constructor(cardiologist,dentist,therapeutic){
     this.title="",
@@ -53,10 +53,10 @@ class Modal {
          `
         document.body.insertAdjacentHTML("beforeend",modal)
     }
-    getDataFromForma(btn,modal,tokenUser){
+    getDataFromForma(btn,modals,tokenUser){
         btn.addEventListener('click',()=>{
             const user ={};
-            let all = modal.querySelectorAll('select,input,textarea');
+            let all = modals.querySelectorAll('select,input,textarea');
             all.forEach(element =>{
                 const {name} = element
                 user[name] =element.value
@@ -69,11 +69,10 @@ class Modal {
             },
             body: JSON.stringify(user)
 })
-  .then(response => response.json())
   .then(response => {
     if(response.ok){
-        modal.closeModal()
-        renderingLoginCards(tokenUser)
+        this.closeModal()
+    
     }
   })
         })
@@ -234,7 +233,19 @@ class VisitTherapeutic extends Visit{
         `
         elem.insertAdjacentHTML("beforeend", addForm)
     }
+    changeForm(elem,obj){
+        super.changeForm(elem,obj)
+        const {age:visitAge}=obj;
+        let changeForm =`
+        <label for="age"class="visit__labels">${this.age}:</label>
+        <input name="age" type="text" value=${visitAge} class="border input--size"/>
+        `
+        elem.insertAdjacentHTML("beforeend", changeForm)
+    }
+
 }
+
+
 
 export{Modal,Visit,VisitСardiologist,VisitDentist,VisitTherapeutic}
 
