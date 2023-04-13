@@ -1,5 +1,6 @@
 import {tokenUser} from './_login.js'
-import {Modal,Visit,VisitСardiologist,VisitDentist,VisitTherapeutic} from './_creatModal.js'
+import {Modal,VisitСardiologist,VisitDentist,VisitTherapeutic} from './_creatModal.js'
+// import {renderingLoginCards} from './_localStorage.js'
 
 let modal = new Modal("Кардіолог","Стоматолог","Терапевт");
 let visitСardiologist = new VisitСardiologist("ПІБ","Мета візиту","Короткий опис візиту","Tерміновість","Звичайний тиск","Індекс маси тіла","Перенесені захворювання серцево-судинної системи","Вік","Статус візиту")
@@ -27,9 +28,10 @@ createVisitButton.addEventListener("click",(e)=>{
     chooseDoctor.addEventListener("change", ()=>{
         form.innerHTML="";////delete form content
         doctors[chooseDoctor.value](form);
-        modal.getDataFromForma(sendUser,modalSection,tokenUser)
+        modal.getDataFromForma(sendUser,modalSection,tokenUser,modal)
+       
     })
 
     })
    
-export {visitDentist}
+export {visitDentist,visitTherapeutic,visitСardiologist}
