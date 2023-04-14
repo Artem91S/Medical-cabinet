@@ -249,65 +249,78 @@ template {
 }
 
 .modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: fixed;
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
   z-index: 1;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4);
-}
-.modal--open {
-  display: block;
+  background-color: rgba(0, 0, 0, 0.9);
 }
 .modal__content {
-  background: rgb(255, 255, 255);
-  border-radius: 0.75rem;
-  padding: 1.25rem;
-  margin: 20% auto;
-  border: 1px solid #888;
-  width: 40%;
-}
-.modal__close-btn {
-  left: 94%;
-}
-.modal__title {
-  text-align: center;
-  margin: 0 0 1.25rem 0;
-}
-.modal__form {
-  width: 100%;
+  font-size: 18px;
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: 0.625rem;
+  align-items: center;
+  background: rgb(255, 255, 255);
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 40%;
+  min-height: 30%;
+  overflow: auto;
 }
-.modal__form > input {
+.modal__content__close-btn {
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  font-size: 30px;
+  left: 90%;
+}
+.modal__content__title {
+  text-align: center;
+  margin: 0 0 20px 0;
+}
+.modal__content > input {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
   border: 1px solid #ccc;
 }
+.modal__content__registration-btn {
+  padding: 20px;
+}
+.modal__form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 .modal__form > select {
-  margin: 0.5rem 0;
+  margin: 8px 0;
 }
 .modal__btn {
-  padding: 0.9375rem 0;
-  margin-top: 1.25rem;
+  padding: 15px;
+  margin-top: 20px;
 }
 
 .close-btn {
   position: relative;
-  font-size: 2.2rem;
+  font-size: 14px;
   cursor: pointer;
-  width: 1.25rem;
+  width: 20px;
 }
 
 .cards-filters {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
   padding: 20px;
   background: rgb(129, 127, 127);
   border-bottom-left-radius: 10px;
@@ -315,17 +328,18 @@ template {
 }
 .cards-filters__title {
   margin-left: 30px;
+  font-size: 18px;
   color: rgb(172, 169, 169);
 }
 .cards-filters__dropdown {
   cursor: pointer;
-  width: 150px;
+  width: 230px;
   height: 25px;
   border-radius: 10px;
 }
 .cards-filters__input-search {
   cursor: pointer;
-  width: 150px;
+  width: 230px;
   height: 25px;
   border-radius: 10px;
 }
@@ -341,46 +355,42 @@ template {
   background: rgb(255, 255, 255);
 }
 
-.creating__visit {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  background: rgb(255, 255, 255);
-  width: 15.625rem;
-  padding: 1.5625rem;
+.modal__content__choose__doctor {
+  padding: 10px 50px;
   border: 1px solid #000;
-}
-
-.create-modal {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  top: 0;
   width: 100%;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
 }
 
 .flex__forma {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .border {
   border: 1px solid #000;
 }
 
-.choose__doctor {
-  padding: 10px;
+.input--size {
+  padding: 10px 20px;
 }
 
 .visit__labels {
-  padding: 0.625rem 0;
+  padding: 10px 0;
 }
 
 .btn__send__visit {
-  margin-top: 1.875rem;
+  cursor: pointer;
+  margin-top: 20px;
+  padding: 20px 40px;
+  font-size: 18px;
+  background: rgb(224, 17, 17);
+  color: rgb(255, 255, 255);
+}
+
+.btn__send__visit:hover {
+  background: rgb(255, 255, 255);
+  color: rgb(224, 17, 17);
 }
 
 .add__inputs {
@@ -389,42 +399,42 @@ template {
 }
 
 .board-of-cards {
-  padding: 1.25rem;
+  padding: 20px;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.625rem;
   flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  height: 75vh;
 }
 .board-of-cards__patient-card {
-  padding: 0.3125rem;
+  padding: 5px;
   background: rgb(172, 169, 169);
   position: relative;
   display: flex;
-  font-size: 1rem;
+  font-size: 16px;
   flex-direction: column;
-  width: 15.625rem;
-  height: 15.625rem;
+  width: 250px;
+  height: 250px;
 }
 .board-of-cards__patient-card__title {
-  padding-bottom: 0.9375rem;
+  padding-bottom: 15px;
 }
 .board-of-cards__patient-card__options {
   position: absolute;
-  right: 0.625rem;
+  right: 10px;
 }
 .board-of-cards__patient-card__content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.3125rem;
+  gap: 5px;
 }
 .board-of-cards__patient-card__close-btn {
   cursor: pointer;
-  font-size: 1.875rem;
+  font-size: 30px;
 }
 .board-of-cards__patient-card__edit-btn {
-  font-size: 1.25rem;
+  font-size: 20px;
   cursor: pointer;
 }
 .board-of-cards__patient-card__more-details {
@@ -432,11 +442,11 @@ template {
   background: rgb(172, 169, 169);
 }
 .board-of-cards__patient-card__btn-details {
-  margin-top: 0.3125rem;
+  margin-top: 5px;
   color: rgb(255, 255, 255);
   cursor: pointer;
-  padding: 0.9375rem;
-  border-radius: 0.9375rem;
+  padding: 15px;
+  border-radius: 15px;
   background: rgb(224, 17, 17);
 }
 .board-of-cards__patient-card__hidden-filter-card {
@@ -448,14 +458,199 @@ template {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.3125rem;
+  gap: 5px;
   position: absolute;
-  padding: 0.3125rem;
-  top: 15.625rem;
+  padding: 5px;
+  top: 250px;
   left: 0;
   width: 100%;
 }
 
+@media (max-width: 2000px) {
+  .wrapper {
+    max-width: 2000px;
+    min-width: 901px;
+  }
+  .modal__content {
+    width: 40%;
+    padding: 30px;
+  }
+  .modal__content__registration-btn {
+    width: 60%;
+    padding: 15px 25px;
+  }
+  .board-of-cards__patient-card {
+    width: 300px;
+    height: 330px;
+    font-size: 20px;
+  }
+  .board-of-cards__patient-card__close-btn {
+    font-size: 40px;
+  }
+  .board-of-cards__patient-card__btn-details {
+    margin-top: 5px;
+  }
+  .click-on-details {
+    top: 320px;
+  }
+}
+@media (max-width: 1200px) {
+  .wrapper {
+    max-width: 1200px;
+    min-width: 901px;
+  }
+  .cards-filters__title {
+    font-size: 15px;
+  }
+  .cards-filters__dropdown {
+    width: 150px;
+  }
+  .cards-filters__input-search {
+    width: 150px;
+  }
+}
+@media (max-width: 900px) {
+  .wrapper {
+    max-width: 900px;
+    min-width: 701px;
+  }
+  .modal__content {
+    width: 60%;
+    padding: 25px;
+  }
+  .modal__content__title {
+    font-size: 17px;
+  }
+  .modal__content > input {
+    padding: 10px 10px;
+  }
+  .modal__content__registration-btn {
+    width: 70%;
+    margin-top: 15px;
+    padding: 15px 45px;
+  }
+  .board-of-cards__patient-card {
+    width: 250px;
+    height: 280px;
+    font-size: 17px;
+  }
+  .board-of-cards__patient-card__title {
+    font-size: 24px;
+  }
+  .board-of-cards__patient-card__close-btn {
+    font-size: 35px;
+  }
+  .board-of-cards__patient-card__edit-btn {
+    font-size: 25px;
+  }
+  .board-of-cards__patient-card__btn-details {
+    margin-top: 0px;
+  }
+  .click-on-details {
+    top: 277px;
+  }
+  .modal__content__choose__doctor {
+    width: 90%;
+  }
+  .cards-filters__title {
+    margin: 0;
+  }
+  .cards-filters__dropdown {
+    width: 80px;
+  }
+  .cards-filters__input-search {
+    width: 150px;
+  }
+}
+@media (max-width: 700px) {
+  .wrapper {
+    max-width: 700px;
+    min-width: 501px;
+  }
+  .header__title {
+    font-size: 20px;
+  }
+  .header__slogan {
+    font-size: 17px;
+  }
+  .modal__content {
+    width: 60%;
+    padding: 20px;
+  }
+  .modal__content__title {
+    font-size: 18px;
+  }
+  .modal__content > input {
+    padding: 5px 5px;
+  }
+  .modal__content__registration-btn {
+    width: 70%;
+    margin-top: 10px;
+    padding: 20px 40px;
+  }
+  .board-of-cards__patient-card {
+    width: 300px;
+    height: 310px;
+    font-size: 20px;
+  }
+  .board-of-cards__patient-card__title {
+    font-size: 24px;
+  }
+  .board-of-cards__patient-card__close-btn {
+    font-size: 35px;
+  }
+  .board-of-cards__patient-card__edit-btn {
+    font-size: 25px;
+  }
+  .board-of-cards__patient-card__btn-details {
+    margin-top: 0px;
+  }
+  .board-of-cards .click-on-details {
+    top: 308px;
+  }
+  .cards-filters {
+    flex-direction: column;
+    flex-wrap: nowrap;
+  }
+  .cards-filters__title {
+    font-size: 20px;
+  }
+  .cards-filters__dropdown {
+    width: 250px;
+    height: 40px;
+  }
+  .cards-filters__input-search {
+    width: 250px;
+    height: 40px;
+  }
+  .cards-filters__btn-search {
+    margin-top: 15px;
+    padding: 20px 50px;
+  }
+  .header__logo {
+    margin-right: 15px;
+  }
+  .header__btn-create-card {
+    padding: 20px 20px;
+    font-size: 12px;
+  }
+}
+@media (max-width: 500px) {
+  .wrapper {
+    max-width: 500px;
+    min-width: 301px;
+  }
+  .header__body {
+    flex-direction: column;
+  }
+  .header__btn-create-card {
+    font-size: 20px;
+  }
+  .modal__content {
+    width: 70%;
+    padding: 20px;
+  }
+}
 body {
   font-family: "Montserrat", sans-serif;
   font-size: 1rem;
@@ -466,7 +661,7 @@ body {
 }
 
 .btn {
-  border-radius: 1.25rem;
+  border-radius: 20px;
   transition: color 0.3s ease;
   cursor: pointer;
 }
@@ -485,14 +680,6 @@ body {
 .btn--grey:hover {
   background: rgb(224, 17, 17);
   color: rgb(255, 255, 255);
-}
-.btn--hidden {
-  display: none;
-}
-
-.container {
-  max-width: 75rem;
-  margin: 0 auto;
 }
 
 .missing-info {
