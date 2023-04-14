@@ -2,7 +2,7 @@
 import { tokenUser} from "./_login.js"
 import {selectCondition ,selectVisitsTerm,inputSearch,btnSearch,arrayOfCards,Validation} from './_cardsFilters.js'
 import {Card,CardiologistCard,DentistCard,TherapistCard,boardOfCards} from './_creatCard.js'
-import {Modal}from './_creatModal.js'
+import {Modal,Visit,VisitDentist,VisitTherapeutic}from './_creatModal.js'
 import {visitDentist,visitСardiologist,visitTherapeutic} from './_createVisit.js'
 async function renderingLoginCards(tokenUser){
   let response = await fetch("https://ajax.test-danit.com/api/v2/cards", {
@@ -12,113 +12,133 @@ async function renderingLoginCards(tokenUser){
     'Authorization': `Bearer ${tokenUser}`
   }})
 let json = await response.json();
-
-
-let validation = new Validation(inputSearch,json,btnSearch,arrayOfCards);
- document.querySelector('.cards-filters').addEventListener('change',()=>{
-  selectCondition.value === "Усі"?validation.validationFilters(selectVisitsTerm,"visitUrgency"):
-  selectVisitsTerm.value === "Усі"?validation.validationFilters(selectCondition,"visitStatus"):(
-    validation.validationFilters(selectCondition,"visitStatus"),
-    validation.validationFilters(selectVisitsTerm,"visitUrgency")
-  )
-})
-
-validation.clickOnButtonSearch();
-let cards =new Card();
-cards.deleteCard(boardOfCards)
-json.forEach(card=>{
-// console.log(card);
-// fetch('https://ajax.test-danit.com/api/v2/cards/161931', {
-//   method: 'DELETE',
-//   headers: {
-//       'Authorization': `Bearer ${tokenUser}`
-//   },
-// })
-  const cardsValues = Object.values(card);
-  const [doctor,...rest]= cardsValues;
-  let objDoctor;
-  switch (doctor) {
-    case "Сardiologist":
-      objDoctor = new CardiologistCard(...cardsValues);
-    break;
-    case "Dentist":
-      objDoctor =new DentistCard(...cardsValues);
-      
-    break;
-    case "Therapeutic":
-      objDoctor =new TherapistCard(...cardsValues);
-      
-    break;
-    default: console.log("Помилка");
-      break;
+visualCard(json)
 }
-objDoctor.renderingCard()
-
-}) 
-}
-
 document.querySelector('.board-of-cards').addEventListener('click', (e)=>{
   let parentElementOfClickId = e.target.closest("div").parentElement.dataset.id;
   if(e.target.className === 'board-of-cards__patient-card__edit-btn' && e.target.closest("div").parentElement.dataset.id === parentElementOfClickId){
-    createModalForChanges(tokenUser,parentElementOfClickId)
+    createModalForChanges(parentElementOfClickId)
   }
 })
- 
-async function createModalForChanges(tokenUser,parentElementOfClickId){
+async function createModalForChanges(parentElementOfClickId){
+        const object = {};
+        const contentObj = {};
+        getCardsValue(contentObj,"board-of-cards__patient-card__content",parentElementOfClickId);
+        getCardsValue(object,"board-of-cards__patient-card__more-details",parentElementOfClickId);
+        const card ={...contentObj,...object}
+        const {doctor} =card;
+        let modals = new Modal()
+        let newVisitDentist = new VisitDentist(card);
+        let newVisitTherapeutic = new VisitTherapeutic(card);
+        doctor === "Стоматолог"?(
+          newVisitDentist.changeForm(card),
+          putDataFromForma(modals,tokenUser,parentElementOfClickId),
+          modals.clickCloseModal() 
+        ):
+        doctor === "Терапевт"? (
+          newVisitTherapeutic.changeForm(card),
+          modals.clickCloseModal() 
+        ):""
+       
   
-        let response = await fetch(`https://ajax.test-danit.com/api/v2/cards/${parentElementOfClickId}`, {
-          method: 'GET',
+        
+      }
+
+    function visualCard (json){
+        let validation = new Validation(inputSearch,json,btnSearch,arrayOfCards);
+        document.querySelector('.cards-filters').addEventListener('change',()=>{
+         selectCondition.value === "Усі"?validation.validationFilters(selectVisitsTerm,"visitUrgency"):
+         selectVisitsTerm.value === "Усі"?validation.validationFilters(selectCondition,"visitStatus"):(
+           validation.validationFilters(selectCondition,"visitStatus"),
+           validation.validationFilters(selectVisitsTerm,"visitUrgency")
+         )
+       })
+       
+       validation.clickOnButtonSearch();
+       let cards =new Card();
+       cards.deleteCard(boardOfCards)
+       json.forEach(card=>{
+        //  console.log(card);
+       // console.log(card);
+      //  fetch('https://ajax.test-danit.com/api/v2/cards/163345', {
+      //    method: 'DELETE',
+      //    headers: {
+      //        'Authorization': `Bearer ${tokenUser}`
+      //    },
+      //  })
+         const cardsValues = Object.values(card);
+         const [doctor,...rest]= cardsValues;
+         let objDoctor; 
+           doctor === "Кардіолог"?objDoctor = new CardiologistCard(...cardsValues):
+           doctor === "Стоматолог"?objDoctor =new DentistCard(...cardsValues):
+           doctor === "Терапевт"?objDoctor =new TherapistCard(...cardsValues):"";
+           objDoctor.renderingCard()
+       }) 
+      }
+
+      function getCardsValue(obj,className,parentElementOfClickId){
+
+        const dataOfCard =Array.from(document.querySelector(`[data-id="${parentElementOfClickId}"]`).querySelector(`.${className}`).children)
+        const filterData= dataOfCard.filter(element=>{
+          if(element.hasAttribute('data-name'))return element 
+        })
+        filterData.forEach(card =>{
+          obj[card.dataset.name] = card.textContent;
+        })
+      }
+
+
+    function putDataFromForma(modalka,tokenUser,cardId){
+        const card =document.querySelector(`[data-id="${cardId}"]`)
+        const modal= document.querySelector(".modal");
+        const btn = document.querySelector(".btn__rewrite");
+            btn.addEventListener('click',()=>{
+                const user ={};
+                let all = modal.querySelectorAll('select,input,textarea');
+                all.forEach(element =>{
+                    const {name} = element
+                    user[name] =element.value
+                })
+                fetch(`https://ajax.test-danit.com/api/v2/cards/${cardId}`, {
+                method: 'PUT',
+                headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${tokenUser}`
+                },
+                body: JSON.stringify(user)
+    })
+      .then(response => response.json())
+    .then(data=> {
+        card.remove()
+        modalka.closeModal()
+        visualCard([data])})
+      })
+    }
+    function getDataFromForma(tokenUser,modal){
+        const modals= document.querySelector(".modal");
+        const btn = document.querySelector(".btn__send__visit");
+      btn.addEventListener('click',()=>{
+          const user ={};
+          let all = modals.querySelectorAll('select,input,textarea');
+          all.forEach(element =>{
+              const {name} = element
+              user[name] =element.value
+          })
+          fetch("https://ajax.test-danit.com/api/v2/cards", {
+          method: 'POST',
           headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${tokenUser}`
-          }})
-          if(response.ok){
-          let changingCard = await response.json()
-          const {doctor}=changingCard 
-          // console.log(changingCard)
-          let changeModal =new Modal("Кардіолог","Стоматолог","Терапевт");
-          
-        
-
-          changeModal.createModal();
-
-          let sectionModal = document.querySelector('.modal');
-          let closeButton = document.querySelector('.modal__content__close-btn')
-          let form = document.querySelector('.modal-creating__form');
-          let btnSubmitData =document.querySelector('.btn__send__visit')
-          btnSubmitData.classList.add("position")
-          let optionDoctorSelected = document.querySelector('.modal__content__choose__doctor').querySelectorAll('option');
-                  
-          sectionModal.addEventListener("click",(e)=>{
-            if(e.target === closeButton || e.target === sectionModal )
-              changeModal.closeModal();
-              renderingLoginCards(tokenUser)
-                })
-          doctor === "Сardiologist"?(
-            optionDoctorSelected[0].selected= 'selected',
-            visitСardiologist.changeForm(form,changingCard),
-            changeModal.putDataFromForma(btnSubmitData,sectionModal,tokenUser,parentElementOfClickId)
-            ):"";
-         
-          doctor === "Dentist"?(
-            optionDoctorSelected[1].selected ='selected',
-            visitDentist.changeForm(form,changingCard),
-            changeModal.putDataFromForma(btnSubmitData,sectionModal,tokenUser,parentElementOfClickId)
-                        ):"";
-          doctor === "Therapeutic"?(
-            optionDoctorSelected[2].selected= 'selected',
-            visitTherapeutic.changeForm(form,changingCard),
-            changeModal.putDataFromForma(btnSubmitData,sectionModal,tokenUser,parentElementOfClickId)
-            ):""
-          
-          boardOfCards.innerHTML ="";
-          btnSubmitData.addEventListener('click', ()=>{
-            changeModal.closeModal();
-            renderingLoginCards(tokenUser)
-          }
-            )
-        }     
+          },
+          body: JSON.stringify(user)
+})
+.then(response => response.json())
+.then(data=>{
+  modal.closeModal()
+  visualCard([data])
+})
+      })
       }
 
-export{renderingLoginCards}
+export{renderingLoginCards,visualCard,getDataFromForma}
 // export {renderingLoginCards,setDataInLocalStorage,validateEnter,reloadPage}
