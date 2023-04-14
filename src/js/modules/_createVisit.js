@@ -1,6 +1,6 @@
 import {tokenUser} from './_login.js'
 import {Modal,VisitСardiologist,VisitDentist,VisitTherapeutic} from './_creatModal.js'
-// import {renderingLoginCards} from './_localStorage.js'
+import {getDataFromForma} from './_localStorage.js'
 
 let modal = new Modal("Кардіолог","Стоматолог","Терапевт");
 let visitСardiologist = new VisitСardiologist("ПІБ","Мета візиту","Короткий опис візиту","Tерміновість","Звичайний тиск","Індекс маси тіла","Перенесені захворювання серцево-судинної системи","Вік","Статус візиту")
@@ -12,9 +12,8 @@ createVisitButton.addEventListener("click",(e)=>{
     e.preventDefault();
     modal.createModal()
     const sendUser = document.querySelector('.btn__send__visit');
-    const closeButton =document.querySelector('.modal__content__close-btn');
     const modalSection =document.querySelector('.modal');
-    modal.clickCloseModal(modalSection,closeButton)
+    modal.clickCloseModal()
    
     const form =document.querySelector(".modal-creating__form");
     const chooseDoctor = document.querySelector(".modal__content__choose__doctor");
@@ -22,13 +21,13 @@ createVisitButton.addEventListener("click",(e)=>{
     function makeDoctorsObject(key,value,modal){
         return doctors[key]= value.bind(modal)
     }
-    makeDoctorsObject("Сardiologist",visitСardiologist.createFormСardiologist,visitСardiologist)
-    makeDoctorsObject("Dentist",visitDentist.createFormDentist,visitDentist)
-    makeDoctorsObject("Therapeutic",visitTherapeutic.createFormTherapeutic,visitTherapeutic)
+    makeDoctorsObject("Кардіолог",visitСardiologist.createFormСardiologist,visitСardiologist)
+    makeDoctorsObject("Стоматолог",visitDentist.createFormDentist,visitDentist)
+    makeDoctorsObject("Терапевт",visitTherapeutic.createFormTherapeutic,visitTherapeutic)
     chooseDoctor.addEventListener("change", ()=>{
         form.innerHTML="";////delete form content
         doctors[chooseDoctor.value](form);
-        modal.getDataFromForma(sendUser,modalSection,tokenUser,modal)
+        getDataFromForma(tokenUser,modal)
        
     })
 
