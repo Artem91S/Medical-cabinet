@@ -21,17 +21,17 @@ export class Card{
             </div>
             <div class="board-of-cards__patient-card__content">
               <p class="board-of-cards__patient-card__property-name">Статус:</p>
-              <p class="board-of-cards__patient-card__property-name">${this.status}</p>
+              <p class="board-of-cards__patient-card__property-name" data-name="visitStatus">${this.status}</p>
               <p class="board-of-cards__patient-card__property-name">ПІБ:</p>
-              <p class="board-of-cards__patient-card__property-name">${this.fullName}</p>
+              <p class="board-of-cards__patient-card__property-name" data-name="fullName">${this.fullName}</p>
               <p class="board-of-cards__patient-card__property-name">Терміновість візиту:</p>
-              <p class="board-of-cards__patient-card__property-name">${this.visitUrgency}</p>
+              <p class="board-of-cards__patient-card__property-name" data-name="visitUrgency">${this.visitUrgency}</p>
             <button class="board-of-cards__patient-card__btn-details" data-id="${this.id}__btn">Детальніше</button>
             <div class="board-of-cards__patient-card__more-details">
               <p class="board-of-cards__patient-card__property-name">Тип візиту:</p>
-              <p class="board-of-cards__patient-card__property-name">${this.visitType}</p>
+              <p class="board-of-cards__patient-card__property-name" data-name="visitType">${this.visitType}</p>
               <p class="board-of-cards__patient-card__property-name">Опис:</p>
-              <p class="board-of-cards__patient-card__property-name">${this.visitDescription}</p>
+              <p class="board-of-cards__patient-card__property-name" data-name="visitDescription">${this.visitDescription}</p>
             </div>
           </div>
         </div>
@@ -40,40 +40,19 @@ export class Card{
  
       }
   hiddenDetails(btn){
+      const card = document.querySelector('[data-id="163379"]');
       btn.addEventListener('click', e=>{
+      
       e.target.closest("div").querySelector(".board-of-cards__patient-card__more-details").classList.toggle("click-on-details")
     })
    }
-change(){
-  // boardOfCards.addEventListener('click', (e)=>{
-  //   let parentElementOfClickId = e.target.closest("div").parentElement.dataset.id;
-  //   if(e.target.className === 'board-of-cards__patient-card__edit-btn' && e.target.closest("div").parentElement.dataset.id === parentElementOfClickId){
-  //     createModalForChanges(tokenUser,parentElementOfClickId)
-  //   }
-  // })
-
-  ///lister
-  // renderingLoginCards(tokenUser)
-
-
-  ///change
-  // boardOfCards.addEventListener('click', (e)=>{
-  //   let parentElementOfClick = e.target.closest("div").parentElement;
-  //   if(e.target.className === "board-of-cards__patient-card__edit-btn"){
-  //     // renderingLoginCards(tokenUser,true)
-     
-         
-  //   }
-  // })
-}
 
 deleteCard(boardOfCards){
        boardOfCards.addEventListener("click", (e)=>{
         let parentElementOfClick = e.target.closest("div").parentElement;
     if(e.target.className === "board-of-cards__patient-card__close-btn"){
            // let cardId = parentElementOfClick.dataset.id;
-          if(confirm("Ви дійсно хочити видалити картку?"))
-        {
+       
           try {
             
             fetch(`https://ajax.test-danit.com/api/v2/cards/${cardId}`, {
@@ -84,13 +63,12 @@ deleteCard(boardOfCards){
             })
                 .then(response => {
                     if(response.status === 200){
-                        parentElementOfClick.remove()
+                      if(confirm("Ви дійсно хочити видалити картку?")) return parentElementOfClick.remove()
                     }})
-               
         } catch (error) {
             console.error(error)
         }
-        }
+        
     }
   })
        
@@ -111,23 +89,19 @@ renderingCard(){
   let btn = document.querySelector(`[data-id="${this.id}__btn"]`)
   let cardContent = `
       <p class="board-of-cards__patient-card__property-name">Доктор:</p>
-      <p class="board-of-cards__patient-card__property-name">${this.doctor}</p>
+      <p class="board-of-cards__patient-card__property-name" data-name="doctor">${this.doctor}</p>
       <p class="board-of-cards__patient-card__property-name">Вік:</p>
-      <p class="board-of-cards__patient-card__property-name">${this.age}</p>
+      <p class="board-of-cards__patient-card__property-name" data-name="age">${this.age}</p>
       <p class="board-of-cards__patient-card__property-name">Тиск:</p>
-      <p class="board-of-cards__patient-card__property-name">${this.bloodPressure}</p>
+      <p class="board-of-cards__patient-card__property-name" data-name="bloodPressure">${this.bloodPressure}</p>
       <p class="board-of-cards__patient-card__property-name">Індекс тіла:</p>
-      <p class="board-of-cards__patient-card__property-name">${this.bodyMassIndex}</p>
+      <p class="board-of-cards__patient-card__property-name" data-name="bodyMassIndex">${this.bodyMassIndex}</p>
       <p class="board-of-cards__patient-card__property-name">Серцеві захворювання:</p>
-      <p class="board-of-cards__patient-card__property-name">${this.cardiovascularDisease}</p>
+      <p class="board-of-cards__patient-card__property-name" data-name="cardiovascularDisease">${this.cardiovascularDisease}</p>
  
   `
 btn.closest("div").querySelector('.board-of-cards__patient-card__more-details').insertAdjacentHTML('beforeend',cardContent)
 super.hiddenDetails(btn)
-
-}
-change(){
-  super.change()
 }
 }
 export class DentistCard extends Card{
@@ -140,19 +114,15 @@ export class DentistCard extends Card{
     super.renderingCard()
     let btn = document.querySelector(`[data-id="${this.id}__btn"]`)
     let cardContent = `
-        <p class="board-of-cards__patient-card__property-name">Доктор:</p>
-        <p class="board-of-cards__patient-card__property-name">${this.doctor}</p>
+        <p class="board-of-cards__patient-card__property-name" >Доктор:</p>
+        <p class="board-of-cards__patient-card__property-name" data-name="doctor">${this.doctor}</p>
         <p class="board-of-cards__patient-card__property-name">Дата візиту:</p>
-        <p class="board-of-cards__patient-card__property-name">${this.visitDate}</p>
+        <p class="board-of-cards__patient-card__property-name" data-name="visitDate">${this.visitDate}</p>
     `
     btn.closest("div").querySelector('.board-of-cards__patient-card__more-details').insertAdjacentHTML('beforeend',cardContent)
   super.hiddenDetails(btn)
 
   }
-  change(){
-    super.change()
-  }
-
   }
 export class TherapistCard extends Card{
     constructor(doctor,fullName,visitType,visitDescription,visitStatus,visitUrgency,age,id){
@@ -165,16 +135,12 @@ export class TherapistCard extends Card{
       let btn = document.querySelector(`[data-id="${this.id}__btn"]`);
       let cardContent = `
           <p class="board-of-cards__patient-card__property-name">Доктор:</p>
-          <p class="board-of-cards__patient-card__property-name">${this.doctor}</p>
+          <p class="board-of-cards__patient-card__property-name"data-name="doctor">${this.doctor}</p>
           <p class="board-of-cards__patient-card__property-name">Вік:</p>
-          <p class="board-of-cards__patient-card__property-name">${this.ageTherapist}</p>
+          <p class="board-of-cards__patient-card__property-name"data-name="age">${this.ageTherapist}</p>
       `
       btn.closest("div").querySelector('.board-of-cards__patient-card__more-details').insertAdjacentHTML('beforeend',cardContent)
     super.hiddenDetails(btn)
     }
-    change(){
-      super.change()
-    }
- 
     }
 export {boardOfCards}
