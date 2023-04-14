@@ -1,4 +1,5 @@
 // import { renderingLoginCards } from "./_localStorage.js";
+
 class Modal {
     constructor(cardiologist,dentist,therapeutic){
     this.title="",
@@ -14,9 +15,9 @@ class Modal {
               <h3 class="modal__content__title">Створити Візит</h3>  
               <select name="doctor" class="modal__content__choose__doctor">
                 <option name="doctor" >Усі</option>
-                <option name="doctor" value="Сardiologist">${this.cardiologist}</option>
-                <option name="doctor" value="Dentist">${this.dentist}</option>
-                <option name="doctor" value="Therapeutic">${this.therapeutic}</option>   
+                <option name="doctor" value="Кардіолог">${this.cardiologist}</option>
+                <option name="doctor" value="Стоматолог">${this.dentist}</option>
+                <option name="doctor" value="Терапевт">${this.therapeutic}</option>   
              </select>  
                 <form class="modal-creating__form form flex__forma">            
                   
@@ -30,7 +31,9 @@ class Modal {
     closeModal(){
         document.querySelector(".modal").remove()
     }
-     clickCloseModal(modal,closeButton) {
+     clickCloseModal() {
+        let modal =document.querySelector('.modal');
+        let closeButton =document.querySelector('.modal__content__close-btn');
         modal.addEventListener('click', (e) => {
             if (e.target === modal || e.target ===closeButton) {
                 this.closeModal()
@@ -53,123 +56,133 @@ class Modal {
          `
         document.body.insertAdjacentHTML("beforeend",modal)
     }
-    getDataFromForma(btn,modals,tokenUser){
-        btn.addEventListener('click',()=>{
-            const user ={};
-            let all = modals.querySelectorAll('select,input,textarea');
-            all.forEach(element =>{
-                const {name} = element
-                user[name] =element.value
-            })
-            fetch("https://ajax.test-danit.com/api/v2/cards", {
-            method: 'POST',
-            headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${tokenUser}`
-            },
-            body: JSON.stringify(user)
-})
-  .then(response => {
-    if(response.ok){
-        this.closeModal()
-    
-    }
-  })
-        })
-        }
-    putDataFromForma(btn,modal,tokenUser,cardId){
-            btn.addEventListener('click',()=>{
-                const user ={};
-                let all = modal.querySelectorAll('select,input,textarea');
-                all.forEach(element =>{
-                    const {name} = element
-                    user[name] =element.value
-                })
-                fetch(`https://ajax.test-danit.com/api/v2/cards/${cardId}`, {
-                method: 'PUT',
-                headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${tokenUser}`
-                },
-                body: JSON.stringify(user)
-    })
-      .then(response => response.json())
-            })
-            }
+//     getDataFromForma(btn,modals,tokenUser){
+//         btn.addEventListener('click',()=>{
+//             const user ={};
+//             let all = modals.querySelectorAll('select,input,textarea');
+//             all.forEach(element =>{
+//                 const {name} = element
+//                 user[name] =element.value
+//             })
+//             fetch("https://ajax.test-danit.com/api/v2/cards", {
+//             method: 'POST',
+//             headers: {
+//             'Content-Type': 'application/json',
+//             'Authorization': `Bearer ${tokenUser}`
+//             },
+//             body: JSON.stringify(user)
+// })
+//   .then(response => )
+//         })
+//         }
+    // putDataFromForma(tokenUser,cardId){
+    //     const card =document.querySelector(`[data-id="${cardId}"]`)
+    //     const modal= document.querySelector(".modal");
+    //     const btn = document.querySelector(".btn__rewrite");
+    //         btn.addEventListener('click',()=>{
+    //             const user ={};
+    //             let all = modal.querySelectorAll('select,input,textarea');
+    //             all.forEach(element =>{
+    //                 const {name} = element
+    //                 user[name] =element.value
+    //             })
+    //             fetch(`https://ajax.test-danit.com/api/v2/cards/${cardId}`, {
+    //             method: 'PUT',
+    //             headers: {
+    //             'Content-Type': 'application/json',
+    //             'Authorization': `Bearer ${tokenUser}`
+    //             },
+    //             body: JSON.stringify(user)
+    // })
+    //   .then(response => response.json())
+    // .then(data=> {
+    //     card.remove()
+    //     visualCard([data])})
+    //   })
+    // }
     }
 
 class Visit {
-    constructor(fullName,purpose,description,impotent,status){
+    constructor(fullName,visitType,visitDescription,visitUrgency,visitStatus){
         this.fullName = fullName;
-        this.purpose =purpose;
-        this.description =description;
-        this.impotent=impotent;
-        this.status = status
+        this.visitType =visitType;
+        this.visitDescription =visitDescription;
+        this.visitUrgency=visitUrgency;
+        this.visitStatus = visitStatus
     }
 createForma(elem){
     let addForm= `
-
                 <label for="fullName"class="visit__labels">${this.fullName}:</label>
                      <input name="fullName" type="text" value="" class="border input--size">
-               <label for="visitType" class="visit__labels">${this.purpose}:</label>
+               <label for="visitType" class="visit__labels">${this.visitType}:</label>
                      <input name="visitType" type="text" value="" class="border input--size">
-                <label for="visitDescription" class="visit__labels">${this.description}:</label>
+                <label for="visitDescription" class="visit__labels">${this.visitDescription}:</label>
                      <textarea cols="10" class="border"  name="visitDescription" value="" rows="5"></textarea>
-                <label for="impotent" class="visit__labels">${this.status}:</label>
+                <label for="impotent" class="visit__labels">${this.visitStatus}:</label>
                 <select name="visitStatus" class="input--size">
                     <option name="visitStatus" value="Вікрита">Вікрита</option>
                     <option name="visitStatus"value="Закрита">Закрита</option>
                 </select>
-                <label for="impotent" class="visit__labels">${this.impotent}:</label>
-                <select name="visitUrgency" class="input--size">
-                    <option  value="Невідкладна">Невідкладна</option>
-                    <option value="Пріоритетна">Пріоритетна</option>
-                    <option value="Звичайна">Звичайна</option>                
-              </select>`
-            elem.insertAdjacentHTML("beforeend",addForm)
-}
-changeForm(elem,obj){
-    const{doctor,fullName:pationtName,visitType:typeVisit,visitDescription:description,...rest}=obj
-    let changeForm= `
-
-                <label for="fullName"class="visit__labels">${this.fullName}:</label>
-                     <input name="fullName" type="text" value="${pationtName}" class="border input--size">
-               <label for="visitType" class="visit__labels">${this.purpose}:</label>
-                     <input name="visitType" type="text" value="${typeVisit}" class="border input--size">
-                <label for="visitDescription" class="visit__labels">${this.description}:</label>
-                     <textarea cols="10" class="input--size" name="visitDescription" rows="5">${description}</textarea>
-                <label for="impotent" class="visit__labels">${this.status}:</label>
-                <select name="visitStatus" class="input--size">
-                    <option name="visitStatus" value="Вікрита">Вікрита</option>
-                    <option name="visitStatus" value="Закрита">Закрита</option>
-                </select>
-                <label for="impotent" class="visit__labels">${this.impotent}:</label>
+                <label for="impotent" class="visit__labels">${this.visitUrgency}:</label>
                 <select name="visitUrgency" class="input--size">
                     <option value="Невідкладна">Невідкладна</option>
                     <option value="Пріоритетна">Пріоритетна</option>
                     <option value="Звичайна">Звичайна</option>                
               </select>`
-            elem.insertAdjacentHTML("beforeend",changeForm)
+            elem.insertAdjacentHTML("beforeend",addForm)
+}
+changeForm(obj){
+    const{doctor:doctorValue,fullName:fullNameValue,visitType:visitTypeValue,visitDescription:description,...rest}=obj
+    let changeForm= `
+    <section class="modal">
+    <div class="modal__content">
+        <div class="modal__content__close-btn">&times;</div>
+        <h3 class="modal__content__title">Зміна картки</h3>  
+            <form class="modal-creating__form form flex__forma">           
+                <label for="fullName"class="visit__labels">Доктор:</label>
+                    <input name="doctor" type="text" value="${doctorValue}" class="border input--size">
+                <label for="fullName"class="visit__labels">ПІБ:</label>
+                     <input name="fullName" type="text" value="${fullNameValue}" class="border input--size">
+               <label for="visitType" class="visit__labels">Тип візиту:</label>
+                     <input name="visitType" type="text" value="${visitTypeValue}" class="border input--size">
+                <label for="visitDescription" class="visit__labels">Опис:</label>
+                     <textarea cols="10" class="input--size" name="visitDescription" rows="5">${description}</textarea>
+                <label for="impotent" class="visit__labels">Статус:</label>
+                <select name="visitStatus" class="input--size">
+                    <option name="visitStatus" value="Вікрита">Вікрита</option>
+                    <option name="visitStatus" value="Закрита">Закрита</option>
+                </select>
+                <label for="impotent" class="visit__labels">Терміновість візиту:</label>
+                <select name="visitUrgency" class="input--size">
+                    <option value="Невідкладна">Невідкладна</option>
+                    <option value="Пріоритетна">Пріоритетна</option>
+                    <option value="Звичайна">Звичайна</option>                
+                 </select>
+            </form> 
+            <button class="btn btn__rewrite" >Змінити</button>
+    </div>
+    </section>`
+            document.body.insertAdjacentHTML("afterbegin",changeForm)
 }
 
 }
 class VisitСardiologist extends Visit{
-    constructor(initials,purpose,description,impotent, pressure,indexWeight,heartDisease,age,status){
-        super(initials,purpose,description,impotent,status);
-        this.pressure = pressure;
+    constructor(fullName,visitType,visitDescription,visitUrgency, bloodPressure,indexWeight,cardiovascularDisease,age,visitStatus){
+        super(fullName,visitType,visitDescription,visitUrgency,visitStatus);
+        this.bloodPressure = bloodPressure;
         this.indexWeight =indexWeight;
-        this.heartDisease =heartDisease;
+        this.cardiovascularDisease =cardiovascularDisease;
         this.age =age
     }
     createFormСardiologist(elem){
         super.createForma(elem)
         let addForm =`
         <div class="add__inputs Сardiologist">
-           <label class="visit__labels">${this.pressure}:</label>
+           <label class="visit__labels">${this.bloodPressure}:</label>
                 <input name="bloodPressure" type="text" class="border input--size">
            <label class="visit__labels">${this.indexWeight}:</label>
                 <input name="bodyMassIndex" type="text" class="border input--size">
-           <label class="visit__labels">${this.heartDisease}:</label>
+           <label class="visit__labels">${this.cardiovascularDisease}:</label>
                 <input name="cardiovascularDisease" type="text" class="border input--size">
            <label for="age"class="visit__labels">${this.age}:</label>
                 <input name="age"type="text" class="border input--size">
@@ -181,71 +194,69 @@ class VisitСardiologist extends Visit{
         super.changeForm(elem,obj)
 
         let changeForm =`
-           <<label class="visit__labels">${this.pressure}:</label>
+           <<label class="visit__labels">:</label>
            <input name="bloodPressure" value=${bloodPressure} type="text" class="border input--size">
-      <label class="visit__labels">${this.indexWeight}:</label>
+      <label class="visit__labels">:</label>
            <input name="bodyMassIndex" value=${bodyMassIndex} type="text" class="border input--size">
-      <label class="visit__labels">${this.heartDisease}:</label>
+      <label class="visit__labels">:</label>
            <input name="cardiovascularDisease" value=${cardiovascularDisease} type="text" class="border input--size">
-      <label for="age"class="visit__labels">${this.age}:</label>
+      <label for="age"class="visit__labels">:</label>
            <input name="age"type="text" value=${age}class="border input--size">
         `
         elem.insertAdjacentHTML("beforeend", changeForm)
     }
 }
 class VisitDentist extends Visit{
-    constructor(initials,purpose,description,impotent,date,status){
-        super(initials,purpose,description,impotent,status);
-        this.date =date
+    constructor(fullName,visitType,visitDescription,visitUrgency,visitDate,visitStatus){
+        super(fullName,visitType,visitDescription,visitUrgency,visitStatus);
+        this.visitDate =visitDate
     }
     createFormDentist(elem){
         super.createForma(elem)
         let addForm =`
         <div class="add__inputs Dentist">
-           <label for="visitDate" class="visit__labels">${this.date}:</label>
+           <label for="visitDate" class="visit__labels">${this.visitDate}:</label>
            <input type="date" name="visitDate" class="border input--size">
        </div>
         `
         elem.insertAdjacentHTML("beforeend", addForm)
     }
-    changeForm(elem,obj){
-        super.changeForm(elem,obj)
+    changeForm(obj){
+        super.changeForm(obj)
         const {visitDate:visitDateValue}=obj;
         let changeForm =`
-           <label for="visitDate" class="visit__labels">${this.date}:</label>
+           <label for="visitDate" class="visit__labels">Дата:</label>
            <input type="date" name="visitDate" value=${visitDateValue} class="border input--size">
         `
-        elem.insertAdjacentHTML("beforeend", changeForm)
+        document.querySelector('.form').insertAdjacentHTML("beforeend", changeForm)
     }
 }
 class VisitTherapeutic extends Visit{
-    constructor(initials,purpose,description,impotent,age,status){
-        super(initials,purpose,description,impotent,status);
-        this.age =age
+    constructor(fullName,visitType,visitDescription,visitUrgency,visitAge,visitStatus){
+        super(fullName,visitType,visitDescription,visitUrgency,visitStatus);
+        this.visitAge =visitAge
     }
     createFormTherapeutic(elem){
         super.createForma(elem)
         let addForm =`
         <div class="add__inputs Therapeutic">
-           <label for="age" class="visit__labels">${this.age}:</label>
+           <label for="age" class="visit__labels">${this.visitAge}:</label>
            <input type="text" name="age" class="border input--size">
        </div>
         `
         elem.insertAdjacentHTML("beforeend", addForm)
     }
-    changeForm(elem,obj){
-        super.changeForm(elem,obj)
+    changeForm(obj){
+        super.changeForm(obj)
         const {age:visitAge}=obj;
         let changeForm =`
-        <label for="age"class="visit__labels">${this.age}:</label>
+        <label for="age"class="visit__labels">Вік:</label>
         <input name="age" type="text" value=${visitAge} class="border input--size"/>
         `
-        elem.insertAdjacentHTML("beforeend", changeForm)
+        document.querySelector('.form').insertAdjacentHTML("beforeend", changeForm)
     }
 
 }
-
-
 
 export{Modal,Visit,VisitСardiologist,VisitDentist,VisitTherapeutic}
 
