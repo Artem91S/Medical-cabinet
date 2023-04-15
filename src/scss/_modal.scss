@@ -22,11 +22,10 @@
     background: $clr-ntrl-min;
     border-radius: 12px;
     padding:20px;
-    // margin: 20% auto;
     border: 1px solid #888;
     width: 40%;
-    min-height: 30%;
-    overflow: auto;
+    height: 60%;
+    overflow-y: auto;
     &__close-btn{
       cursor: pointer;
       position: absolute;
