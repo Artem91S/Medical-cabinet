@@ -1,9 +1,10 @@
 // /: d27dc183-2d35-4901-9c3c-7ccd9e890e13 sitnikov.artem91@gmail.com pass:12345
 import { tokenUser} from "./_login.js"
-import {selectCondition ,selectVisitsTerm,inputSearch,btnSearch,arrayOfCards,Validation} from './_cardsFilters.js'
+import {selectCondition ,selectVisitsTerm,inputSearch,btnSearch,Validation} from './_cardsFilters.js'
 import {Card,CardiologistCard,DentistCard,TherapistCard,boardOfCards} from './_creatCard.js'
 import {Modal,Visit,VisitDentist,VisitTherapeutic}from './_creatModal.js'
 import {visitDentist,visitСardiologist,visitTherapeutic} from './_createVisit.js'
+
 async function renderingLoginCards(tokenUser){
   let response = await fetch("https://ajax.test-danit.com/api/v2/cards", {
     method: 'GET',
@@ -39,24 +40,21 @@ async function createModalForChanges(parentElementOfClickId){
           newVisitTherapeutic.changeForm(card),
           modals.clickCloseModal() 
         ):""
-       
-  
-        
+       ///cardiolog  
       }
 
-    function visualCard (json){
-        let validation = new Validation(inputSearch,json,btnSearch,arrayOfCards);
+function visualCard (json){
+        let validation = new Validation(inputSearch,json,btnSearch);
         document.querySelector('.cards-filters').addEventListener('change',()=>{
-         selectCondition.value === "Усі"?validation.validationFilters(selectVisitsTerm,"visitUrgency"):
-         selectVisitsTerm.value === "Усі"?validation.validationFilters(selectCondition,"visitStatus"):(
            validation.validationFilters(selectCondition,"visitStatus"),
-           validation.validationFilters(selectVisitsTerm,"visitUrgency")
-         )
+           validation.validationFilters(selectVisitsTerm,"visitUrgency",true),
+           validation.clickOnButtonSearch()
+        
        })
-       
-       validation.clickOnButtonSearch();
+      
        let cards =new Card();
        cards.deleteCard(boardOfCards)
+     
        json.forEach(card=>{
         //  console.log(card);
        // console.log(card);
@@ -67,12 +65,13 @@ async function createModalForChanges(parentElementOfClickId){
       //    },
       //  })
          const cardsValues = Object.values(card);
-         const [doctor,...rest]= cardsValues;
+         const [doctor]= cardsValues;
          let objDoctor; 
            doctor === "Кардіолог"?objDoctor = new CardiologistCard(...cardsValues):
            doctor === "Стоматолог"?objDoctor =new DentistCard(...cardsValues):
            doctor === "Терапевт"?objDoctor =new TherapistCard(...cardsValues):"";
            objDoctor.renderingCard()
+           document.querySelectorAll(".modal").forEach(elem=>elem.classList.add("height-select-modal"))
        }) 
       }
 
@@ -141,4 +140,3 @@ async function createModalForChanges(parentElementOfClickId){
       }
 
 export{renderingLoginCards,visualCard,getDataFromForma}
-// export {renderingLoginCards,setDataInLocalStorage,validateEnter,reloadPage}
