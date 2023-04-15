@@ -5,16 +5,6 @@ $ff-alt: 'Lato', sans-serif;
 $ff-alt-bold: 'Lato-bold', sans-serif;
 $ff-alt-bold-italic: 'Lato-italic', sans-serif;
 
-//Px to rem math
-@use "sass:math";
-@function rem($px) {
-  $result: math.div($px, 16) + rem;
-  @return $result;
-}
-
-//Fonts-size
-
-/* base font size - applied at body / html level */
 $fs-base: rem(16);
 
 //Mobile ver

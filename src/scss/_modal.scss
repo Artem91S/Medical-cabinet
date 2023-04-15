@@ -32,6 +32,7 @@
       top:10px;
       font-size: 30px;
       left: 90%;
+    
     }
     &__title {
       text-align: center;
@@ -71,4 +72,16 @@
   font-size: 14px;
   cursor: pointer;
   width: 20px;
+ 
+}
+.btn__rewrite{
+  cursor: pointer;
+  background: $clr-primary-btn;
+  color:$clr-ntrl-min;
+  padding: 15px 20px;
+  margin-top:20px;
+}
+.btn__rewrite:hover{
+  background: $clr-ntrl-min;
+  color:$clr-primary-btn;
 }
