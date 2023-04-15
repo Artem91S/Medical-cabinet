@@ -56,50 +56,6 @@ class Modal {
          `
         document.body.insertAdjacentHTML("beforeend",modal)
     }
-//     getDataFromForma(btn,modals,tokenUser){
-//         btn.addEventListener('click',()=>{
-//             const user ={};
-//             let all = modals.querySelectorAll('select,input,textarea');
-//             all.forEach(element =>{
-//                 const {name} = element
-//                 user[name] =element.value
-//             })
-//             fetch("https://ajax.test-danit.com/api/v2/cards", {
-//             method: 'POST',
-//             headers: {
-//             'Content-Type': 'application/json',
-//             'Authorization': `Bearer ${tokenUser}`
-//             },
-//             body: JSON.stringify(user)
-// })
-//   .then(response => )
-//         })
-//         }
-    // putDataFromForma(tokenUser,cardId){
-    //     const card =document.querySelector(`[data-id="${cardId}"]`)
-    //     const modal= document.querySelector(".modal");
-    //     const btn = document.querySelector(".btn__rewrite");
-    //         btn.addEventListener('click',()=>{
-    //             const user ={};
-    //             let all = modal.querySelectorAll('select,input,textarea');
-    //             all.forEach(element =>{
-    //                 const {name} = element
-    //                 user[name] =element.value
-    //             })
-    //             fetch(`https://ajax.test-danit.com/api/v2/cards/${cardId}`, {
-    //             method: 'PUT',
-    //             headers: {
-    //             'Content-Type': 'application/json',
-    //             'Authorization': `Bearer ${tokenUser}`
-    //             },
-    //             body: JSON.stringify(user)
-    // })
-    //   .then(response => response.json())
-    // .then(data=> {
-    //     card.remove()
-    //     visualCard([data])})
-    //   })
-    // }
     }
 
 class Visit {
