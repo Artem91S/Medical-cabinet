@@ -1,8 +1,9 @@
 // /: d27dc183-2d35-4901-9c3c-7ccd9e890e13 sitnikov.artem91@gmail.com pass:12345
 import { tokenUser} from "./_login.js"
+import { toggleClass } from "../app.js"
 import {selectCondition ,selectVisitsTerm,inputSearch,btnSearch,Validation} from './_cardsFilters.js'
 import {Card,CardiologistCard,DentistCard,TherapistCard,boardOfCards} from './_creatCard.js'
-import {Modal,Visit,VisitDentist,VisitTherapeutic}from './_creatModal.js'
+import {Modal,VisitDentist,VisitTherapeutic,VisitСardiologist}from './_creatModal.js'
 import {visitDentist,visitСardiologist,visitTherapeutic} from './_createVisit.js'
 
 async function renderingLoginCards(tokenUser){
@@ -13,7 +14,14 @@ async function renderingLoginCards(tokenUser){
     'Authorization': `Bearer ${tokenUser}`
   }})
 let json = await response.json();
+if(json.length === 0){return toggleClass('board-of-cards__text')}
+else{
+toggleClass('board-of-cards__text')
 visualCard(json)
+}
+
+// console.log(boardOfCards.contains(document.querySelector(".board-of-cards__patient-card")));
+
 }
 document.querySelector('.board-of-cards').addEventListener('click', (e)=>{
   let parentElementOfClickId = e.target.closest("div").parentElement.dataset.id;
@@ -31,6 +39,7 @@ async function createModalForChanges(parentElementOfClickId){
         let modals = new Modal()
         let newVisitDentist = new VisitDentist(card);
         let newVisitTherapeutic = new VisitTherapeutic(card);
+        let newVisitCardiologist = new VisitСardiologist(card)
         doctor === "Стоматолог"?(
           newVisitDentist.changeForm(card),
           putDataFromForma(modals,tokenUser,parentElementOfClickId),
@@ -38,9 +47,15 @@ async function createModalForChanges(parentElementOfClickId){
         ):
         doctor === "Терапевт"? (
           newVisitTherapeutic.changeForm(card),
+          putDataFromForma(modals,tokenUser,parentElementOfClickId),
           modals.clickCloseModal() 
+        ):
+        doctor === "Кардіолог"? (
+          newVisitCardiologist.changeForm(card),  
+          modals.clickCloseModal(),
+          putDataFromForma(modals,tokenUser,parentElementOfClickId)
+        
         ):""
-       ///cardiolog  
       }
 
 function visualCard (json){
@@ -49,21 +64,10 @@ function visualCard (json){
            validation.validationFilters(selectCondition,"visitStatus"),
            validation.validationFilters(selectVisitsTerm,"visitUrgency",true),
            validation.clickOnButtonSearch()
-        
        })
-      
        let cards =new Card();
        cards.deleteCard(boardOfCards)
-     
        json.forEach(card=>{
-        //  console.log(card);
-       // console.log(card);
-      //  fetch('https://ajax.test-danit.com/api/v2/cards/163345', {
-      //    method: 'DELETE',
-      //    headers: {
-      //        'Authorization': `Bearer ${tokenUser}`
-      //    },
-      //  })
          const cardsValues = Object.values(card);
          const [doctor]= cardsValues;
          let objDoctor; 
@@ -71,12 +75,10 @@ function visualCard (json){
            doctor === "Стоматолог"?objDoctor =new DentistCard(...cardsValues):
            doctor === "Терапевт"?objDoctor =new TherapistCard(...cardsValues):"";
            objDoctor.renderingCard()
-           document.querySelectorAll(".modal").forEach(elem=>elem.classList.add("height-select-modal"))
        }) 
       }
 
-      function getCardsValue(obj,className,parentElementOfClickId){
-
+function getCardsValue(obj,className,parentElementOfClickId){
         const dataOfCard =Array.from(document.querySelector(`[data-id="${parentElementOfClickId}"]`).querySelector(`.${className}`).children)
         const filterData= dataOfCard.filter(element=>{
           if(element.hasAttribute('data-name'))return element 
@@ -87,8 +89,8 @@ function visualCard (json){
       }
 
 
-    function putDataFromForma(modalka,tokenUser,cardId){
-        const card =document.querySelector(`[data-id="${cardId}"]`)
+function putDataFromForma(modalka,tokenUser,cardId){
+    const card =document.querySelector(`[data-id="${cardId}"]`)
         const modal= document.querySelector(".modal");
         const btn = document.querySelector(".btn__rewrite");
             btn.addEventListener('click',()=>{
@@ -106,14 +108,16 @@ function visualCard (json){
                 },
                 body: JSON.stringify(user)
     })
-      .then(response => response.json())
+      .then(response => {
+        if(response.ok)return response.json()})
     .then(data=> {
         card.remove()
         modalka.closeModal()
-        visualCard([data])})
+        visualCard([data])
+        })
       })
     }
-    function getDataFromForma(tokenUser,modal){
+function getDataFromForma(tokenUser,modal){
         const modals= document.querySelector(".modal");
         const btn = document.querySelector(".btn__send__visit");
       btn.addEventListener('click',()=>{
@@ -139,4 +143,4 @@ function visualCard (json){
       })
       }
 
-export{renderingLoginCards,visualCard,getDataFromForma}
+export{renderingLoginCards,visualCard,getDataFromForma,createModalForChanges}

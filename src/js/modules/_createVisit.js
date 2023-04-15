@@ -11,8 +11,6 @@ const createVisitButton = document.querySelector('.header__btn-create-card');
 createVisitButton.addEventListener("click",(e)=>{
     e.preventDefault();
     modal.createModal()
-    const sendUser = document.querySelector('.btn__send__visit');
-    const modalSection =document.querySelector('.modal');
     modal.clickCloseModal()
    
     const form =document.querySelector(".modal-creating__form");

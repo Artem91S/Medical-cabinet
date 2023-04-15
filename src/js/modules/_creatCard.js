@@ -40,39 +40,20 @@ export class Card{
  
       }
     hiddenDetails(btn){
-      let all = document.querySelectorAll('.board-of-cards__patient-card__more-details');
-      try{
-        window.addEventListener('click', e=>{
-          let showElement =e.target.closest("div").querySelector(".board-of-cards__patient-card__more-details");
-          if(e.target.dataset.btn === btn.dataset.btn ){
-            showElement.classList.toggle("click-on-details")
-          }
-          else{
-          all.forEach(section=>{
-          if(section.dataset.detailsid === btn.dataset.btn ){
-            section.classList.remove("click-on-details")
-          }
-          })
-          }
-        })
+    btn.addEventListener("click", (e)=>{
+      let card = e.target.parentElement;
+      if(card.dataset.id == e.target.dataset.id){
+        e.target.closest("div").querySelector(".board-of-cards__patient-card__more-details").classList.toggle("click-on-details")
       }
-      catch(err){
-        console.log(err);
-      }
-      
-
-    // window.addEventListener("click", (e)=>{
-    //   if(e.target.parentElement.dataset.id == e.target.dataset.id){
-    //     e.target.closest("div").querySelector(".board-of-cards__patient-card__more-details").classList.toggle("click-on-details")
-
-    //   }
-    // })
+  
+    })
+    
    }
     deleteCard(blockOfCards){
       blockOfCards.addEventListener("click", (e)=>{
         let parentElementOfClick = e.target.closest("div").parentElement;
           if(e.target.className === "board-of-cards__patient-card__close-btn"){
-          //  let cardId = parentElementOfClick.dataset.id;
+           let cardId = parentElementOfClick.dataset.id;
        try {
             fetch(`https://ajax.test-danit.com/api/v2/cards/${cardId}`, {
                 method: 'DELETE',
@@ -82,7 +63,10 @@ export class Card{
             })
             .then(response => {
                     if(response.status === 200){
-                      if(confirm("Ви дійсно хочити видалити картку?")) return parentElementOfClick.remove()
+                      if(confirm("Ви дійсно хочити видалити картку?")) {
+                        parentElementOfClick.remove()
+                      
+                      }
                     }})
         } catch (error) {
             console.error(error)

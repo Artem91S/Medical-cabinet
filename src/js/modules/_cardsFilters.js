@@ -19,9 +19,12 @@ const btnSearch = document.querySelector('.cards-filters__btn-search');
                 if(select.value === "Усі"){
                     let allCards =document.querySelectorAll('.board-of-cards__patient-card');
                     allCards.forEach(card=>{
-                        if(card.dataset.id !==userCard.id)
-                        card.classList.add("board-of-cards__patient-card__hidden-filter-card")})
-
+                        if(card.dataset.id !==userCard.id)return card.classList.add("board-of-cards__patient-card__hidden-filter-card")
+                        else{
+                            return card.classList.remove("board-of-cards__patient-card__hidden-filter-card")
+                        }
+                    })
+                        
                     return this.filterCards
                 }
               

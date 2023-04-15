@@ -1,5 +1,3 @@
-// import { renderingLoginCards } from "./_localStorage.js";
-
 class Modal {
     constructor(cardiologist,dentist,therapeutic){
     this.title="",
@@ -93,7 +91,7 @@ changeForm(obj){
     <section class="modal">
     <div class="modal__content">
         <div class="modal__content__close-btn">&times;</div>
-        <h3 class="modal__content__title">Зміна картки</h3>  
+        <h3 class="modal__content__title">Зміна візиту:</h3>  
             <form class="modal-creating__form form flex__forma">           
                 <label for="fullName"class="visit__labels">Доктор:</label>
                     <input name="doctor" type="text" value="${doctorValue}" class="border input--size">
