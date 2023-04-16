@@ -1,6 +1,6 @@
 import {Modal} from './_creatModal.js'
 import { toggleClass } from '../app.js';
-import {renderingLoginCards} from './_localStorage.js'
+import {renderingLoginCards} from './_functionsCards.js'
 const enterBtn = document.querySelector('.header__btn-login');
 const boarderText = document.querySelector('.board-of-cards__text');
 let enterModal = new Modal();
