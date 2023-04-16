@@ -1,4 +1,4 @@
-import {tokenUser} from "./_login.js"
+import {tokenUser,boarderText} from "./_login.js"
 const boardOfCards =document.querySelector('.board-of-cards');
 export class Card{
     constructor(fullName,visitType,visitDescription,visitStatus,visitUrgency,id){
@@ -37,7 +37,7 @@ export class Card{
         </div>
         `
         boardOfCards.insertAdjacentHTML('beforeend', card);
- 
+        boarderText.classList.add("hidden")
       }
     hiddenDetails(btn){
     btn.addEventListener("click", (e)=>{
@@ -54,6 +54,7 @@ export class Card{
         let parentElementOfClick = e.target.closest("div").parentElement;
           if(e.target.className === "board-of-cards__patient-card__close-btn"){
            let cardId = parentElementOfClick.dataset.id;
+           if(confirm("Ви дійсно хочити видалити картку?")) {
        try {
             fetch(`https://ajax.test-danit.com/api/v2/cards/${cardId}`, {
                 method: 'DELETE',
@@ -63,15 +64,15 @@ export class Card{
             })
             .then(response => {
                     if(response.status === 200){
-                      if(confirm("Ви дійсно хочити видалити картку?")) {
-                        parentElementOfClick.remove()
                       
-                      }
+                        parentElementOfClick.remove()
+                        showTextAfterDelete()
+                   
                     }})
         } catch (error) {
             console.error(error)
         } 
-    }
+    }}
   })
  }
   }
@@ -139,4 +140,10 @@ export class TherapistCard extends Card{
       super.hiddenDetails(btn)
     }
     }
-export {boardOfCards}
+
+
+function showTextAfterDelete(){
+  boardOfCards.contains(document.querySelector('.board-of-cards__patient-card'))?"":boarderText.classList.remove('hidden')
+  
+    }
+export {boardOfCards,showTextAfterDelete}
