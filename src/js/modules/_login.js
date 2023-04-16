@@ -1,13 +1,12 @@
 import {Modal} from './_creatModal.js'
-import {exitFromVisit} from './_exitVisit.js'
-// TestSytnikov.a@ukr.net pass =1234 token 211ef4b7-06d9-430f-afaa-e3364727538b
 import { toggleClass } from '../app.js';
-import {renderingLoginCards,createModalForChanges} from './_localStorage.js'
+import {renderingLoginCards} from './_localStorage.js'
 const enterBtn = document.querySelector('.header__btn-login');
+const boarderText = document.querySelector('.board-of-cards__text');
 let enterModal = new Modal();
 enterBtn.onclick = enterPage;
 let tokenUser= '';
- function enterPage (){
+function enterPage (){
       enterModal.createModalEnter("Прошу введіть дані:")
       const modalScreen = document.querySelector('.modal');
       const closeButton = document.querySelector('.modal__content__close-btn');
@@ -18,16 +17,14 @@ let tokenUser= '';
         let passwordValue = document.querySelector('.modal__password').value;
         getToken(emailValue,passwordValue)
         enterModal.closeModal()
-        
+        boarderText.classList.add("hidden")
       })
  }
 tokenUser= JSON.parse(localStorage.getItem("token"))?.token
-
 window.onload =()=>{
     reloadPage(tokenUser)
-   
   } 
- async function getToken(emailValue,passwordValue){
+async function getToken(emailValue,passwordValue){
    let getInfoFromServer= await fetch("https://ajax.test-danit.com/api/v2/cards/login", {
         method: 'POST',
         headers: {
@@ -45,7 +42,6 @@ function sendData(tokenUser){
   }
   localStorage.setItem("token",JSON.stringify(user))
 }
-
 function reloadPage(localObj){
   if(localObj){
     toggleClass('header__btn')
@@ -55,4 +51,4 @@ function reloadPage(localObj){
 
 }
 
-export {tokenUser}
+export {tokenUser,boarderText}
