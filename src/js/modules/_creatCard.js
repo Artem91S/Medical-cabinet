@@ -1,4 +1,5 @@
 import {tokenUser,boarderText} from "./_login.js"
+import {showTextAfterDelete} from './_functionsCards.js'
 const boardOfCards =document.querySelector('.board-of-cards');
 export class Card{
     constructor(fullName,visitType,visitDescription,visitStatus,visitUrgency,id){
@@ -101,7 +102,7 @@ export class CardiologistCard extends Card{
  
   `
 btn.closest("div").querySelector('.board-of-cards__patient-card__more-details').insertAdjacentHTML('beforeend',cardContent)
-// super.hiddenDetails(btn)
+super.hiddenDetails(btn)
 }
 }
 export class DentistCard extends Card{
@@ -142,8 +143,4 @@ export class TherapistCard extends Card{
     }
 
 
-function showTextAfterDelete(){
-  boardOfCards.contains(document.querySelector('.board-of-cards__patient-card'))?"":boarderText.classList.remove('hidden')
-  
-    }
 export {boardOfCards,showTextAfterDelete}
