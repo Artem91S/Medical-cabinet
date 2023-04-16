@@ -1,8 +1,9 @@
 import {toggleClass} from '../app.js'
+import { boarderText } from './_login.js';
 const BtnExit =document.querySelector('.header__btn-exit');
 function exitFromVisit(){
     BtnExit.addEventListener('click',()=>{
-        document.querySelector('.board-of-cards__text').classList.remove('hidden')
+        boarderText.classList.remove('hidden')
         toggleClass('header__btn')
         toggleClass('cards-filters')
         localStorage.removeItem("token");
