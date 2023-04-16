@@ -1,10 +1,8 @@
 // /: d27dc183-2d35-4901-9c3c-7ccd9e890e13 sitnikov.artem91@gmail.com pass:12345
-import { tokenUser} from "./_login.js"
-import { toggleClass } from "../app.js"
+import { tokenUser,boarderText} from "./_login.js"
 import {selectCondition ,selectVisitsTerm,inputSearch,btnSearch,Validation} from './_cardsFilters.js'
 import {Card,CardiologistCard,DentistCard,TherapistCard,boardOfCards} from './_creatCard.js'
 import {Modal,VisitDentist,VisitTherapeutic,VisitСardiologist}from './_creatModal.js'
-import {visitDentist,visitСardiologist,visitTherapeutic} from './_createVisit.js'
 
 async function renderingLoginCards(tokenUser){
   let response = await fetch("https://ajax.test-danit.com/api/v2/cards", {
@@ -14,13 +12,13 @@ async function renderingLoginCards(tokenUser){
     'Authorization': `Bearer ${tokenUser}`
   }})
 let json = await response.json();
-if(json.length === 0){return toggleClass('board-of-cards__text')}
-else{
-toggleClass('board-of-cards__text')
-visualCard(json)
+if(json.length!==0){
+  boarderText.classList.add("hidden")
+  visualCard(json)
 }
-
-// console.log(boardOfCards.contains(document.querySelector(".board-of-cards__patient-card")));
+else{
+  boarderText.classList.remove("hidden")
+}
 
 }
 document.querySelector('.board-of-cards').addEventListener('click', (e)=>{
@@ -61,7 +59,8 @@ async function createModalForChanges(parentElementOfClickId){
 function visualCard (json){
         let validation = new Validation(inputSearch,json,btnSearch);
         document.querySelector('.cards-filters').addEventListener('change',()=>{
-           validation.validationFilters(selectCondition,"visitStatus"),
+
+           validation.validationFilters(selectCondition,"visitStatus",false),
            validation.validationFilters(selectVisitsTerm,"visitUrgency",true),
            validation.clickOnButtonSearch()
        })
