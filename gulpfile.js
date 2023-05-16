@@ -9,6 +9,7 @@ import{ path } from './gulp/config/path.js';
 import{ plugins } from './gulp/config/plugins.js';
 
 
+
 ////передаём значение глобальную перменную
 global.app={
     isBuild:process.argv.includes('--build'),
