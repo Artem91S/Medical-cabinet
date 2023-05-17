@@ -1,7 +1,6 @@
 import {tokenUser} from './_login.js'
 import {Modal,VisitСardiologist,VisitDentist,VisitTherapeutic} from './_creatModal.js'
 import {getDataFromForma} from './_functionsCards.js'
-
 let modal = new Modal("Кардіолог","Стоматолог","Терапевт");
 let visitСardiologist = new VisitСardiologist("ПІБ","Мета візиту","Короткий опис візиту","Tерміновість","Звичайний тиск","Індекс маси тіла","Перенесені захворювання серцево-судинної системи","Вік","Статус візиту")
 let visitDentist = new VisitDentist("ПІБ","Мета візиту","Короткий опис візиту","Tерміновість","Дата останнього відвідування","Статус візиту")

@@ -3,7 +3,6 @@ import { tokenUser,boarderText} from "./_login.js"
 import {selectCondition ,selectVisitsTerm,inputSearch,btnSearch,Validation} from './_cardsFilters.js'
 import {Card,CardiologistCard,DentistCard,TherapistCard,boardOfCards} from './_creatCard.js'
 import {Modal,VisitDentist,VisitTherapeutic,VisitСardiologist}from './_creatModal.js'
-
 async function renderingLoginCards(tokenUser){
   let response = await fetch("https://ajax.test-danit.com/api/v2/cards", {
     method: 'GET',

@@ -4,3 +4,4 @@ export let configFtp = {
     password:"",
     parallel:5 ////количество одновременных потоков
 }
+

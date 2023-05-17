@@ -1,7 +1,5 @@
 import webp from "gulp-webp";//// преобразование в формат webp
 import imagemin from "gulp-imagemin";////сжатие изображений
-
-
 export const images = () =>{
     return app.gulp.src(app.path.src.images)/////собираем общий файл с несольких частей 
             .pipe(app.plugins.plumber(

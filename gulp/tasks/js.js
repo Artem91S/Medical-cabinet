@@ -1,6 +1,4 @@
 import webpack from "webpack-stream";
-
-
 export const js =()=>{
     return app.gulp.src(app.path.src.js, {sourcemaps: app.isDev})/////собираем общий файл с несольких частей 
             .pipe(app.plugins.plumber(

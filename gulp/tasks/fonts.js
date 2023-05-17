@@ -1,7 +1,6 @@
 import fs from 'fs'
 import fonter from 'gulp-fonter-fix'
 import ttf2woff2 from 'gulp-ttf2woff2'
-
 const fontWeights = {
   thin: 100,
   extralight: 200,

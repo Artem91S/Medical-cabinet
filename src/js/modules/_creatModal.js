@@ -55,7 +55,6 @@ class Modal {
         document.body.insertAdjacentHTML("beforeend",modal)
     }
     }
-
 class Visit {
     constructor(fullName,visitType,visitDescription,visitUrgency,visitStatus){
         this.fullName = fullName;

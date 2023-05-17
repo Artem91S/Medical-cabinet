@@ -1,6 +1,7 @@
 import {tokenUser,boarderText} from "./_login.js"
 import {showTextAfterDelete} from './_functionsCards.js'
 const boardOfCards =document.querySelector('.board-of-cards');
+
 export class Card{
     constructor(fullName,visitType,visitDescription,visitStatus,visitUrgency,id){
       this.visitType = visitType,

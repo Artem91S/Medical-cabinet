@@ -6,7 +6,6 @@ import webpcss from "gulp-webpcss";/////выбор WEBP изображений �
 import autoprefixer from "gulp-autoprefixer";////добавление вендерных префиксов (web kitt i td)
 import groupCssMediaQueries from "gulp-group-css-media-queries"/////групирование медиа запросов 
 const sass = gulpSass(dartSass); ////запускаем сасс
-
 export const scss = () =>{
     return app.gulp.src(app.path.src.scss, {sourcemaps: app.isDev})/////собираем общий файл с несольких частей 
             .pipe(app.plugins.plumber(app.plugins.notify.onError({

@@ -4,7 +4,6 @@ const srcFolder =`./src`;
 ///папка с названием проекта
 import * as nodePath from 'path';
 const rootFolder = nodePath.basename(nodePath.resolve());
-
 export const path ={
     build:{
         js:`${buildFolder}/js/`,

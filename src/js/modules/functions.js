@@ -2,7 +2,6 @@
 export function isWebp(){
     //////Проверяем поддержки webp
     function testWebP(callback) {
-
         var webP = new Image();
         webP.onload = webP.onerror = function () {
         callback(webP.height == 2);

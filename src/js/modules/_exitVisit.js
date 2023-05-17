@@ -11,4 +11,5 @@ function exitFromVisit(){
     })
 }
 exitFromVisit()
+
 export{exitFromVisit,BtnExit}

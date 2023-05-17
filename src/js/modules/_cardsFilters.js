@@ -2,7 +2,6 @@ const selectCondition =document.querySelector('.cards-filters__dropdown-conditio
 const selectVisitsTerm =document.querySelector('.cards-filters__dropdown-visits-term');
 const inputSearch =document.querySelector('.cards-filters__input-search');
 const btnSearch = document.querySelector('.cards-filters__btn-search');
-
  export class Validation{
     constructor(searchInput,array,btn){
         this.searchInput = searchInput;

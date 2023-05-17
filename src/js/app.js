@@ -5,7 +5,6 @@ import './modules/_cardsFilters.js'
 import './modules/_createVisit.js'
 import './modules/_exitVisit.js'
 import * as flsFunctions from "./modules/functions.js";
-
 flsFunctions.isWebp();
 const toggleClass = (className) => {
     const targets = document.querySelectorAll(`.${className}`)
