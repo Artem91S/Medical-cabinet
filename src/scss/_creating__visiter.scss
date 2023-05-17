@@ -1,0 +1,36 @@
+.modal__content__choose__doctor{
+    padding: 10px 50px;
+    border: 1px solid #000;
+    width: 100%;
+}
+.flex__forma{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.border{
+    border: 1px solid #000;
+}
+.input--size{
+    padding: 10px 20px;
+}
+.visit__labels{
+    padding: 10px 0 ;
+}
+.btn__send__visit{
+    cursor: pointer;
+    margin-top: 20px;
+    padding: 20px 40px;
+    font-size: 18px;
+    background:$clr-primary-btn;
+    color:$clr-ntrl-min;
+}
+.btn__send__visit:hover{
+    background:$clr-ntrl-min;
+    color:$clr-primary-btn;
+}
+.add__inputs{
+    display: flex;
+    flex-direction: column;
+}

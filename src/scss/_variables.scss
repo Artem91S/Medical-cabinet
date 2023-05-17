@@ -1,0 +1,61 @@
+//Fonts
+$ff-base: 'Montserrat', sans-serif;
+$ff-base-bold: 'Montserrat-bold', sans-serif;
+$ff-alt: 'Lato', sans-serif;
+$ff-alt-bold: 'Lato-bold', sans-serif;
+$ff-alt-bold-italic: 'Lato-italic', sans-serif;
+
+$fs-base: rem(16);
+//Mobile ver
+/* heading font sizes */
+$fs-h1-mob: rem(48);
+
+/* smaller than heading font sizes */
+$fs-milli-mob: rem(26);
+$fs-micro-mob: rem(24);
+$fs-nano-mob: rem(18);
+$fs-pico-mob: rem(14);
+
+
+//Tablets-ver
+/* heading font sizes */
+$fs-h1-tab: rem(72);
+$fs-h2-tab: rem(42);
+
+/* smaller than heading font sizes */
+$fs-milli-tab: rem(24);
+$fs-micro-tab: rem(21);
+$fs-nano-tab: rem(14);
+
+//PC-ver
+/* heading font sizes */
+$fs-h1-pc: rem(82);
+$fs-h2-pc: rem(54);
+$fs-h3-pc: rem(48);
+
+
+/* smaller than heading font sizes */
+$fs-milli-pc: rem(30);
+$fs-micro-pc: rem(24);
+$fs-nano-pc: rem(14);
+
+//Pricing section
+$fs-price-kilo: rem(82);
+$fs-price-base: rem(60);
+
+//Colors
+//Base colors
+$clr-base: rgba(94, 92, 92,0.7);
+$clr-base-lt: rgb(172, 169, 169);
+$clr-base-dk: rgb(129, 127, 127) ;
+$clr-base-ddk: rgb(79, 77, 77) ;
+
+//Primary colors
+$clr-primary-btn: rgb(224, 17, 17);
+
+
+//Neutral
+$clr-ntrl-min: rgb(255, 255, 255);
+$clr-ntrl-max: rgb(0,0,0);
+
+
