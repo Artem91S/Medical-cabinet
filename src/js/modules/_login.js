@@ -7,6 +7,40 @@ const boarderText = document.querySelector('.board-of-cards__text');
 let enterModal = new Modal();
 enterBtn.onclick = enterPage;
 let tokenUser= '';
+
+function validateEnterFields(emailValue,passwordValue){
+  if(!emailValue.includes("@") || !emailValue.length > 0) {
+    if(!passwordValue.length > 0&&!document.querySelector('.error-password')){
+      document.querySelector('.modal__password').insertAdjacentHTML('afterend',`<p class="error-password">Невірний password</p>`)
+    }
+    else if(passwordValue.length > 0&&document.querySelector('.error-password')){
+      document.querySelector('.error-password').remove()
+    }
+    !document.querySelector(".error-email")  ?(
+      document.querySelector('.modal__email').insertAdjacentHTML('afterend',`<p class="error-email">Невірний email</p>`)
+      )
+      :""
+    }
+    else if(!passwordValue.length > 0 ) {
+    if(!emailValue.includes("@") || !emailValue.length > 0){
+      document.querySelector('.modal__email').insertAdjacentHTML('afterend',`<p class="error-email">Невірний email</p>`)
+    }
+    else if(document.querySelector('.error-email')){
+      document.querySelector('.error-email').remove()
+    }
+    
+     !document.querySelector('.error-password')  ?
+      document.querySelector('.modal__password').insertAdjacentHTML('afterend',`<p class="error-password">Невірний password</p>`)
+      :""
+    }
+    else{
+    !document.querySelector('.error-password')|| !document.querySelector(".error-email")  ?(
+      document.querySelector('.modal__password').insertAdjacentHTML('afterend',`<p class="error-password">Невірний password</p>`),
+      document.querySelector('.modal__email').insertAdjacentHTML('afterend',`<p class="error-email">Невірний email</p>`))
+      :""
+  }
+}
+
 function enterPage (){
       enterModal.createModalEnter("Прошу введіть дані:")
       const modalScreen = document.querySelector('.modal');
@@ -16,26 +50,34 @@ function enterPage (){
       btnSubmit.addEventListener('click' ,()=>{
         let emailValue = document.querySelector('.modal__email').value;
         let passwordValue = document.querySelector('.modal__password').value;
-        getToken(emailValue,passwordValue)
-        enterModal.closeModal()
-        boarderText.classList.add("hidden")
-      })
+
+        emailValue.length > 0 && emailValue.includes("@")&& passwordValue.length > 0 ?(
+         getToken(emailValue,passwordValue),
+         boarderText.classList.add("hidden"))
+         :validateEnterFields(emailValue,passwordValue)
+    }
+      )   
  }
 tokenUser= JSON.parse(localStorage.getItem("token"))?.token
 window.onload =()=>{
     reloadPage(tokenUser)
   } 
 async function getToken(emailValue,passwordValue){
-   let getInfoFromServer= await fetch("https://ajax.test-danit.com/api/v2/cards/login", {
+
+    let getInfoFromServer= await fetch("https://ajax.test-danit.com/api/v2/cards/login", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({ email:`${emailValue}`, password: `${passwordValue}` })
       })
-    tokenUser = await getInfoFromServer.text()
-    sendData(tokenUser)
-    reloadPage(JSON.parse(localStorage.getItem("token"))?.token)
+      getInfoFromServer.status!== 200?(!document.querySelector('.incorrect-login')?document.querySelector('.modal__content__registration-btn').insertAdjacentHTML('afterend',`<h2 class="incorrect-login">Невірний логін чи пароль</h2>`):""):
+      (tokenUser = await getInfoFromServer.text(),
+      enterModal.closeModal(),
+      sendData(tokenUser),
+      reloadPage(JSON.parse(localStorage.getItem("token"))?.token)
+      )
+  
 }
 function sendData(tokenUser){
   const user ={

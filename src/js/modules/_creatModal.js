@@ -5,17 +5,17 @@ class Modal {
     this.dentist = dentist;
     this.therapeutic =therapeutic
     }
-    createModal(){
+    createModal(headerText){
         let modal = `
     <section class="modal">
     <div class="modal__content">
         <div class="modal__content__close-btn">&times;</div>
-              <h3 class="modal__content__title">Створити Візит</h3>  
+              <h3 class="modal__content__title">${headerText}</h3>  
               <select name="doctor" class="modal__content__choose__doctor">
-                <option name="doctor" >Усі</option>
-                <option name="doctor" value="Кардіолог">${this.cardiologist}</option>
-                <option name="doctor" value="Стоматолог">${this.dentist}</option>
-                <option name="doctor" value="Терапевт">${this.therapeutic}</option>   
+                <option class="doctor"name="doctor">Усі</option>
+                <option class="doctor" name="doctor" value="Кардіолог">${this.cardiologist}</option>
+                <option class="doctor" name="doctor" value="Стоматолог">${this.dentist}</option>
+                <option class="doctor" name="doctor" value="Терапевт">${this.therapeutic}</option>   
              </select>  
                 <form class="modal-creating__form form flex__forma">            
                   
@@ -84,39 +84,6 @@ createForma(elem){
               </select>`
             elem.insertAdjacentHTML("beforeend",addForm)
 }
-changeForm(obj){
-    const{doctor:doctorValue,fullName:fullNameValue,visitType:visitTypeValue,visitDescription:description,...rest}=obj
-    let changeForm= `
-    <section class="modal">
-    <div class="modal__content">
-        <div class="modal__content__close-btn">&times;</div>
-        <h3 class="modal__content__title">Зміна візиту:</h3>  
-            <form class="modal-creating__form form flex__forma">           
-                <label for="fullName"class="visit__labels">Доктор:</label>
-                    <input name="doctor" type="text" value="${doctorValue}" class="border input--size">
-                <label for="fullName"class="visit__labels">ПІБ:</label>
-                     <input name="fullName" type="text" value="${fullNameValue}" class="border input--size">
-               <label for="visitType" class="visit__labels">Тип візиту:</label>
-                     <input name="visitType" type="text" value="${visitTypeValue}" class="border input--size">
-                <label for="visitDescription" class="visit__labels">Опис:</label>
-                     <textarea cols="10" class="input--size" name="visitDescription" rows="5">${description}</textarea>
-                <label for="impotent" class="visit__labels">Статус:</label>
-                <select name="visitStatus" class="input--size">
-                    <option name="visitStatus" value="Вікрита">Вікрита</option>
-                    <option name="visitStatus" value="Закрита">Закрита</option>
-                </select>
-                <label for="impotent" class="visit__labels">Терміновість візиту:</label>
-                <select name="visitUrgency" class="input--size">
-                    <option value="Невідкладна">Невідкладна</option>
-                    <option value="Пріоритетна">Пріоритетна</option>
-                    <option value="Звичайна">Звичайна</option>                
-                 </select>
-            </form> 
-            <button class="btn btn__rewrite" >Змінити</button>
-    </div>
-    </section>`
-            document.body.insertAdjacentHTML("afterbegin",changeForm)
-}
 
 }
 class VisitСardiologist extends Visit{
@@ -143,21 +110,6 @@ class VisitСardiologist extends Visit{
         `
         elem.insertAdjacentHTML("beforeend", addForm)
     }
-    changeForm(elem,obj){
-        super.changeForm(elem,obj)
-
-        let changeForm =`
-           <<label class="visit__labels">:</label>
-           <input name="bloodPressure" value=${bloodPressure} type="text" class="border input--size">
-      <label class="visit__labels">:</label>
-           <input name="bodyMassIndex" value=${bodyMassIndex} type="text" class="border input--size">
-      <label class="visit__labels">:</label>
-           <input name="cardiovascularDisease" value=${cardiovascularDisease} type="text" class="border input--size">
-      <label for="age"class="visit__labels">:</label>
-           <input name="age"type="text" value=${age}class="border input--size">
-        `
-        elem.insertAdjacentHTML("beforeend", changeForm)
-    }
 }
 class VisitDentist extends Visit{
     constructor(fullName,visitType,visitDescription,visitUrgency,visitDate,visitStatus){
@@ -174,15 +126,6 @@ class VisitDentist extends Visit{
         `
         elem.insertAdjacentHTML("beforeend", addForm)
     }
-    changeForm(obj){
-        super.changeForm(obj)
-        const {visitDate:visitDateValue}=obj;
-        let changeForm =`
-           <label for="visitDate" class="visit__labels">Дата:</label>
-           <input type="date" name="visitDate" value=${visitDateValue} class="border input--size">
-        `
-        document.querySelector('.form').insertAdjacentHTML("beforeend", changeForm)
-    }
 }
 class VisitTherapeutic extends Visit{
     constructor(fullName,visitType,visitDescription,visitUrgency,visitAge,visitStatus){
@@ -198,15 +141,6 @@ class VisitTherapeutic extends Visit{
        </div>
         `
         elem.insertAdjacentHTML("beforeend", addForm)
-    }
-    changeForm(obj){
-        super.changeForm(obj)
-        const {age:visitAge}=obj;
-        let changeForm =`
-        <label for="age"class="visit__labels">Вік:</label>
-        <input name="age" type="text" value=${visitAge} class="border input--size"/>
-        `
-        document.querySelector('.form').insertAdjacentHTML("beforeend", changeForm)
     }
 
 }

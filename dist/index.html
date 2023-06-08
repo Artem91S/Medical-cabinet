@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/style.min.css">
     <title>Medical Group</title>
 </head>
+
 <body>
 <div class="wrapper">
     <header class="header">
@@ -26,7 +27,9 @@
     </div>
 </header>
 
+
     <main>
+        
         <section class="cards-filters hidden">
     <label for="condition" class ="cards-filters__title">Статус:</label>
         <select name="condition" class="cards-filters__dropdown cards-filters__dropdown-condition">
@@ -45,7 +48,12 @@
         <input type="text" name="search" placeholder="Пошук"class="cards-filters__input-search">
     <button class="cards-filters__btn-search">Шукати</button>
 </section>
+
         <div class="board-of-cards">
+            <div class="wrapp-loader hidden">
+                <div class="loader ">Loading...</div>
+            </div>
+            
             <p class="board-of-cards__text">No items have been added</p>
         </div>
     </main>

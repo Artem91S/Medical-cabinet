@@ -9,11 +9,11 @@
   height: 100%;
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: 100;
   background-color: rgba(0, 0, 0, 0.9);
 
   &__content {
-    font-size: 18px;
+    font-size: 14px;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -23,7 +23,8 @@
     padding:20px;
     border: 1px solid #888;
     width: 40%;
-    height: 60%;
+    min-height: 100px;
+    max-height: 800px;
     overflow-y: auto;
     &__close-btn{
       cursor: pointer;
@@ -49,8 +50,6 @@
       
     }
   }
-
-
   &__form{
     width: 100%;
     display: flex;
@@ -83,4 +82,14 @@
 .btn__rewrite:hover{
   background: $clr-ntrl-min;
   color:$clr-primary-btn;
+}
+.error-email,.error-password{
+  position: relative;
+  left: -90px;
+  color:rgb(178, 17, 17)
+
+}
+.error-create-card{
+  color:rgb(178, 17, 17)
+
 }

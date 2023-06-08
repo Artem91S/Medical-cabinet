@@ -1,7 +1,9 @@
+import { cardDataArray } from "./_functionsCards.js";
 const selectCondition =document.querySelector('.cards-filters__dropdown-condition');
 const selectVisitsTerm =document.querySelector('.cards-filters__dropdown-visits-term');
 const inputSearch =document.querySelector('.cards-filters__input-search');
 const btnSearch = document.querySelector('.cards-filters__btn-search');
+
  export class Validation{
     constructor(searchInput,array,btn){
         this.searchInput = searchInput;
@@ -10,28 +12,22 @@ const btnSearch = document.querySelector('.cards-filters__btn-search');
         this.btn = btn
     }
     validationFilters(select,key,isOpen){
-        
         this.btn.addEventListener("click",()=>{
-            const filterArrayOfCards =isOpen?this.filterCards:this.array 
+            const filterArrayOfCards =isOpen?this.filterCards:(cardDataArray.length>0?cardDataArray:[])
             this.filterCards = filterArrayOfCards.filter(userCard =>{
-                
                 if(select.value === "Усі"){
                     let allCards =document.querySelectorAll('.board-of-cards__patient-card');
                     allCards.forEach(card=>{
                         card.classList.remove("board-of-cards__patient-card__hidden-filter-card")
                         if(card.dataset.id !==userCard.id)return card.classList.add("board-of-cards__patient-card__hidden-filter-card")
-                        
-                    })
-                        
+                    })  
                     return this.filterCards
                 }
-            
                     let changeClass = userCard[key]!== select.value ?("add"):"remove"
-                    document.querySelector(`[data-id="${userCard.id}"]`).classList[changeClass]("board-of-cards__patient-card__hidden-filter-card")        
+                    document.querySelector(`[data-id="${userCard.id}"]`)?.classList[changeClass]("board-of-cards__patient-card__hidden-filter-card")        
                     return changeClass == "remove"
-            
-               
                      })
+             
                     })
     }
     clickOnButtonSearch(){
