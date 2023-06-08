@@ -1,5 +1,6 @@
 import {tokenUser,boarderText} from "./_login.js"
 import {showTextAfterDelete} from './_functionsCards.js'
+import { cardDataArray } from "./_functionsCards.js";
 const boardOfCards =document.querySelector('.board-of-cards');
 
 export class Card{
@@ -42,43 +43,19 @@ export class Card{
         boarderText.classList.add("hidden")
       }
     hiddenDetails(btn){
-    btn.addEventListener("click", (e)=>{
-      let card = e.target.parentElement;
-      if(card.dataset.id == e.target.dataset.id){
-        e.target.closest("div").querySelector(".board-of-cards__patient-card__more-details").classList.toggle("click-on-details")
+      document.body.addEventListener('click',(e)=>{
+    if(e.target === document.querySelector(".board-of-cards")){
+        document.querySelectorAll('.board-of-cards__patient-card__more-details').forEach(elem=>{
+        elem.classList.remove("click-on-details")})
       }
-  
     })
-    
+      btn.addEventListener("click", (e)=>{
+        let card = e.target.parentElement;
+        if(card.dataset.id === e.target.dataset.id){
+          e.target.closest("div").querySelector(".board-of-cards__patient-card__more-details").classList.toggle("click-on-details")}
+    })
    }
-    deleteCard(blockOfCards){
-      blockOfCards.addEventListener("click", (e)=>{
-        let parentElementOfClick = e.target.closest("div").parentElement;
-          if(e.target.className === "board-of-cards__patient-card__close-btn"){
-           let cardId = parentElementOfClick.dataset.id;
-           if(confirm("Ви дійсно хочити видалити картку?")) {
-       try {
-            fetch(`https://ajax.test-danit.com/api/v2/cards/${cardId}`, {
-                method: 'DELETE',
-                headers: {
-                    'Authorization':`Bearer ${tokenUser}`
-                },
-            })
-            .then(response => {
-                    if(response.status === 200){
-                      
-                        parentElementOfClick.remove()
-                        showTextAfterDelete()
-                   
-                    }})
-        } catch (error) {
-            console.error(error)
-        } 
-    }}
-  })
- }
   }
-
 export class CardiologistCard extends Card{
     constructor(doctor,fullName,visitType,visitDescription,visitStatus,visitUrgency,bloodPressure,bodyMassIndex,cardiovascularDisease,age,id){
       super(fullName,visitType,visitDescription,visitStatus,visitUrgency,id)

@@ -259,11 +259,11 @@ template {
   height: 100%;
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: 100;
   background-color: rgba(0, 0, 0, 0.9);
 }
 .modal__content {
-  font-size: 18px;
+  font-size: 14px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -273,7 +273,8 @@ template {
   padding: 20px;
   border: 1px solid #888;
   width: 40%;
-  height: 60%;
+  min-height: 100px;
+  max-height: 800px;
   overflow-y: auto;
 }
 .modal__content__close-btn {
@@ -329,6 +330,16 @@ template {
 .btn__rewrite:hover {
   background: rgb(255, 255, 255);
   color: rgb(224, 17, 17);
+}
+
+.error-email, .error-password {
+  position: relative;
+  left: -90px;
+  color: rgb(178, 17, 17);
+}
+
+.error-create-card {
+  color: rgb(178, 17, 17);
 }
 
 .cards-filters {
@@ -499,6 +510,66 @@ template {
   width: 100%;
 }
 
+.wrapp-loader {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.8);
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  z-index: 1000;
+}
+
+.loader {
+  width: 250px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+  font-family: helvetica, arial, sans-serif;
+  text-transform: uppercase;
+  font-weight: 900;
+  color: #ce4233;
+  letter-spacing: 0.2em;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.loader::before,
+.loader::after {
+  content: "";
+  display: block;
+  width: 15px;
+  height: 15px;
+  background: #ce4233;
+  position: absolute;
+  animation: load 0.9s infinite alternate ease-in-out;
+}
+
+.loader::before {
+  top: 0;
+}
+
+.loader::after {
+  bottom: 0;
+}
+
+@keyframes load {
+  0% {
+    left: 0;
+    height: 30px;
+    width: 15px;
+  }
+  50% {
+    height: 8px;
+    width: 40px;
+  }
+  100% {
+    left: 235px;
+    height: 30px;
+    width: 15px;
+  }
+}
 @media (max-width: 2000px) {
   .wrapper {
     max-width: 2000px;
@@ -558,6 +629,12 @@ template {
     margin-top: 15px;
     padding: 15px 45px;
   }
+  .header__btn-create-card {
+    font-size: 14px;
+  }
+  .header__logo {
+    margin-right: 0px;
+  }
   .modal__content__choose__doctor {
     width: 90%;
   }
@@ -575,12 +652,6 @@ template {
   .wrapper {
     max-width: 700px;
     min-width: 501px;
-  }
-  .header__title {
-    font-size: 20px;
-  }
-  .header__slogan {
-    font-size: 17px;
   }
   .modal__content {
     width: 60%;
@@ -619,9 +690,24 @@ template {
   .header__logo {
     margin-right: 15px;
   }
+  .header__login {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .header__btn-exit {
+    padding: 15px 20px;
+    font-size: 14px;
+  }
   .header__btn-create-card {
-    padding: 20px 20px;
-    font-size: 12px;
+    padding: 17px 20px;
+    font-size: 14px;
+  }
+  .header__title {
+    font-size: 20px;
+  }
+  .header__slogan {
+    font-size: 17px;
   }
 }
 @media (max-width: 500px) {
@@ -633,7 +719,10 @@ template {
     flex-direction: column;
   }
   .header__btn-create-card {
-    font-size: 20px;
+    font-size: 16px;
+  }
+  .header__btn-exit {
+    font-size: 16px;
   }
   .modal__content {
     width: 70%;
