@@ -4,15 +4,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.min.css">
+    <link rel="stylesheet" href="css/style.min.css?_v=20230608224901">
     <title>Medical Group</title>
 </head>
+
 <body>
 <div class="wrapper">
     <header class="header">
     <div class="header__body container">
         <a class="header__link" href="">
-            <img alt="" class="header__logo" src="img/Logo.png">
+            <picture><source srcset="img/Logo.webp" type="image/webp"><img alt="" class="header__logo" src="img/Logo.png"></picture>
             <div class="header__brand">
                 <span class="header__title">MEDICAL GROUP</span>
                 <span class="header__slogan">We take care about you</span>
@@ -26,7 +27,9 @@
     </div>
 </header>
 
+
     <main>
+        
         <section class="cards-filters hidden">
     <label for="condition" class ="cards-filters__title">Статус:</label>
         <select name="condition" class="cards-filters__dropdown cards-filters__dropdown-condition">
@@ -45,11 +48,16 @@
         <input type="text" name="search" placeholder="Пошук"class="cards-filters__input-search">
     <button class="cards-filters__btn-search">Шукати</button>
 </section>
+
         <div class="board-of-cards">
+            <div class="wrapp-loader hidden">
+                <div class="loader ">Loading...</div>
+            </div>
+            
             <p class="board-of-cards__text">No items have been added</p>
         </div>
     </main>
 </div>
-<script src="js/app.min.js"></script>
+<script src="js/app.min.js?_v=20230608224901"></script>
 </body>
 </html>
